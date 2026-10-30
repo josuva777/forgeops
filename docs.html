@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <link rel="stylesheet" href="tailwind.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeOps AI // Technical Documentation &amp; User Guide</title>
+  <meta name="description" content="Official technical documentation, user guide, ASTM metallurgical standards reference, and REST API specification for ForgeOps AI.">
+
+  <!-- Enterprise Fonts: Chakra Petch, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <script>
+    if (window.tailwind) {
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            },
+            cyber: {
+              emerald: '#00f59b',
+              amber: '#ffb800',
+              cyan: '#00d4ff',
+              crimson: '#ff3366',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            tech: ['Space Grotesk', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #08070e;
+      --card-bg: rgba(16, 14, 27, 0.92);
+      --card-border: rgba(244, 63, 94, 0.18);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+      --pink-glow: rgba(244, 63, 94, 0.4);
+      --cyber-emerald: #00f59b;
+    }
+
+    html {
+      background-color: #08070e !important;
+      color-scheme: dark !important;
+    }
+
+    body {
+      background-color: #08070e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.22) 0%, rgba(217, 70, 239, 0.12) 35%, rgba(255, 85, 0, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.16) 0%, rgba(236, 72, 153, 0.07) 40%, transparent 70%),
+        radial-gradient(circle at 88% 35%, rgba(251, 146, 60, 0.15) 0%, rgba(244, 63, 94, 0.08) 45%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 900px 900px, 48px 48px, 48px 48px !important;
+    }
+
+    .theme-space-stars {
+      background-color: #030408 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge {
+      background-color: #080503 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 85, 0, 0.22) 0%, rgba(245, 158, 11, 0.12) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 120, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 120, 0, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.94) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.20) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #fed7aa 55%, #f43f5e 90%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(244, 63, 94, 0.45));
+    }
+
+    .doc-nav-item.active {
+      color: #ffffff;
+      background: rgba(244, 63, 94, 0.15);
+      border-left: 2px solid #f43f5e;
+      font-weight: 700;
+    }
+  
+    /* Multi-Theme Palettes (Live Switching) */
+    .theme-cloudy-pink, #atmosphericBackground.theme-cloudy-pink {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.24) 0%, rgba(217, 70, 239, 0.14) 35%, rgba(255, 85, 0, 0.09) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.18) 0%, rgba(236, 72, 153, 0.08) 40%, transparent 70%),
+        radial-gradient(circle at 88% 35%, rgba(251, 146, 60, 0.16) 0%, rgba(244, 63, 94, 0.09) 45%, transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 65%, rgba(217, 70, 239, 0.14) 0%, rgba(244, 63, 94, 0.07) 50%, transparent 80%),
+        radial-gradient(circle at 18% 85%, rgba(244, 63, 94, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 82% 90%, rgba(255, 85, 0, 0.13) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-space-stars, #atmosphericBackground.theme-space-stars {
+      background-color: #020307 !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(59, 130, 246, 0.22) 0%, rgba(99, 102, 241, 0.14) 35%, rgba(14, 165, 233, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 15% 30%, rgba(147, 51, 234, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 85% 40%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 70%, rgba(99, 102, 241, 0.12) 0%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge, #atmosphericBackground.theme-amber-forge {
+      background-color: #070402 !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(255, 85, 0, 0.25) 0%, rgba(245, 158, 11, 0.15) 35%, rgba(220, 38, 38, 0.09) 60%, transparent 80%),
+        radial-gradient(circle at 12% 28%, rgba(255, 85, 0, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 88% 38%, rgba(245, 158, 11, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 65%, rgba(255, 85, 0, 0.14) 0%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+    .pointer-events-none { pointer-events: none !important; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#08070e]">
+
+  <!-- Atmospheric Background -->
+  <div id="atmosphericBackground" class="fixed inset-0 pointer-events-none z-0 w-full h-full cloudy-pink-atmosphere" style="pointer-events: none !important;"></div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/20 shadow-lg">
+    <div class="border-b border-rose-500/10 bg-[#050409] px-4 py-1.5 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-400 gap-2">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-rose-400 font-bold font-display tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          FORGEOPS // TECHNICAL DOCUMENTATION &amp; SPECIFICATION
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="setTheme('cloudy-pink')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-rose-500 bg-rose-500/25 text-rose-200 font-bold">✦ Cloudy Pink</button>
+        <button onclick="setTheme('space-stars')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">★ Deep Space</button>
+        <button onclick="setTheme('amber-forge')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">▲ Amber Forge</button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-display font-black tracking-wide text-lg group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#ec4899] flex items-center justify-center text-white text-xs font-black shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+          FO
+        </span>
+        <span class="tracking-tight">FORGEOPS <span class="text-rose-400">AI</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-rose-400 transition whitespace-nowrap">Home</a>
+        <a href="app.html" class="hover:text-rose-400 transition whitespace-nowrap">Operations Platform</a>
+        <a href="docs.html" class="text-rose-400 font-bold transition whitespace-nowrap">User Guide &amp; Docs</a>
+        <a href="about.html" class="hover:text-rose-400 transition whitespace-nowrap">About Us</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="login.html" class="text-xs font-mono text-slate-300 hover:text-white hidden sm:inline">Sign In</a>
+        <a href="app.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white text-xs font-display font-bold uppercase tracking-wider transition shadow-[0_0_20px_rgba(244,63,94,0.35)] flex items-center gap-1.5">
+          <span>Launch Workspace</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= DOCUMENTATION MAIN LAYOUT ================= -->
+  <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+    
+    <!-- Left Sidebar: Sticky Table of Contents & Topic Search (3 Cols) -->
+    <aside class="lg:col-span-3 space-y-5">
+      <div class="sticky top-24 space-y-4">
+        
+        <!-- Search Topics Input -->
+        <div class="relative">
+          <input type="text" id="docSearchInput" oninput="filterDocTopics(this.value)" placeholder="Search documentation..." class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none transition">
+          <span class="absolute right-3 top-2.5 text-slate-500 text-xs">🔍</span>
+        </div>
+
+        <!-- Navigation Group -->
+        <div class="pro-glass-card rounded-2xl p-4 border border-white/10 space-y-4 max-h-[calc(100vh-160px)] overflow-y-auto">
+          
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">1. System Overview</div>
+            <a href="#section-arch" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Architecture &amp; Core Principles</a>
+            <a href="#section-quickstart" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">10-Minute Quickstart</a>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">2. Sourcing Workflow</div>
+            <a href="#section-workflow" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">6-Step Procurement Workflow</a>
+            <a href="#section-intake" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Multi-Format Quotation Intake</a>
+            <a href="#section-optical" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Optical Evidence Inspector</a>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">3. Engineering Standards</div>
+            <a href="#section-metallurgy" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">ASTM A516-70 vs A105 Carbon</a>
+            <a href="#section-incoterms" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Incoterms Normalization Math</a>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">4. Governance &amp; ERP</div>
+            <a href="#section-approvals" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Dual-Signoff State Machine</a>
+            <a href="#section-erp" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Phase B ERP Dispatch Hub</a>
+            <a href="#section-audit" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">SHA-256 Merkle Audit Chain</a>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">5. Developer API</div>
+            <a href="#section-api" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">REST API Endpoints &amp; cURL</a>
+            <a href="#section-security" class="doc-nav-item block px-3 py-1.5 rounded-lg text-xs font-sans text-slate-300 hover:text-white hover:bg-white/5 transition">Air-Gapped Zero-Trust Security</a>
+          </div>
+
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Content Area (9 Cols) -->
+    <main class="lg:col-span-9 space-y-12">
+      
+      <!-- Doc Masthead -->
+      <div class="space-y-3 border-b border-white/10 pb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-mono text-xs font-bold uppercase tracking-wider">
+          <span>FORGEOPS OS V2.9 MANUAL // AIR-GAPPED PROCUREMENT INTELLIGENCE</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-display font-black text-white tracking-tight hero-gradient-text">
+          TECHNICAL DOCUMENTATION &amp; OPERATIONAL USER GUIDE
+        </h1>
+        <p class="text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
+          Everything you need to configure air-gapped industrial quotation reconciliation, eliminate multi-million dollar metallurgical mismatch risks, and dispatch verified purchase orders directly to production ERP systems.
+        </p>
+      </div>
+
+      <!-- Section 1: Architecture -->
+      <section id="section-arch" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-rose-400 font-mono text-lg">01.</span>
+          <span>System Architecture &amp; Core Philosophy</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          ForgeOps AI uses a <strong>Modular Monolith</strong> architecture designed to operate 100% air-gapped inside sovereign enterprise firewalls. Unlike general-purpose LLM wrappers that hallucinate prices and compromise proprietary engineering specifications, ForgeOps AI executes deterministic AST extraction, rigorous metallurgical validation against ASME standards, and arbitrary-precision Decimal calculations.
+        </p>
+
+        <div class="pro-glass-card rounded-xl p-5 border border-white/10 font-mono text-xs text-[#00f59b] overflow-x-auto leading-relaxed bg-[#030206]">
++-----------------------------------------------------------------------------------+
+|                        CLIENT / UI LAYER (Browser / WebGL)                        |
+|  - Public Marketing &amp; 3D Industrial Pipeline Visualizer (Three.js)                 |
+|  - Operational Workspace (Optical Bounding Box Review, ASTM Metallurgy Radar,      |
+|    Landed Cost Matrix, Dual-Signoff State Machine, ERP Dispatch Hub)              |
++-----------------------------------------+-----------------------------------------+
+                                          | JSON REST API (/api/v1/*)
+                                          v
++-----------------------------------------------------------------------------------+
+|                        FASTAPI APPLICATION LAYER (forgeops/api.py)                |
+|  - Auth &amp; Session Middleware (PBKDF2-HMAC-SHA256 Tokens + Anti-Sybil Rate Limiter) |
+|  - Epistemic Extraction Engine (Zero-Hallucination AST Parser + Provenance Anchor)|
+|  - Deterministic Landed Cost Engine (Decimal.Decimal + Incoterms Normalizer)      |
+|  - Immutable Merkle Block Audit Ledger (SHA-256 Hash Chain)                       |
++-----------------------------------------------------------------------------------+
+        </div>
+      </section>
+
+      <!-- Section 2: 6-Step Workflow -->
+      <section id="section-workflow" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-rose-400 font-mono text-lg">02.</span>
+          <span>The 6-Step Procurement Reconciliation Workflow</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          The core operational pipeline transforms messy, unstructured vendor quotes into cryptographically verified, ERP-ready purchase orders through six deterministic stages:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans text-xs">
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">1</span>
+              <span>Create Sourcing Request</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              Define the Request Title, target delivery date, jobsite delivery location, and BOM line items with exact MPNs and ASTM metallurgical specifications (e.g. <code>ASTM A516-70 Normalized Cryo</code>).
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">2</span>
+              <span>Upload Supplier Quotations</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              Upload multiple vendor bids in PDF, XLSX, CSV, or DOCX. ForgeOps validates magic bytes, inspects file size, stamps SHA-256 digests, and initiates optical parsing.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">3</span>
+              <span>Optical Evidence Inspection</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              Every extracted number is anchored to exact pixel coordinates on the source quotation with confidence scores. Non-destructive manual corrections preserve the original value in the audit trail.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">4</span>
+              <span>ASTM Metallurgy Verification</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              The automated engineering radar checks quoted steel grades against operating temperature requirements. Quoting commercial carbon steel (ASTM A105) for cryogenic service triggers an immediate safety disqualification.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">5</span>
+              <span>Deterministic Landed Cost Matrix</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              Incoterms normalization unifies EXW, FCA, and DDP quotes. Freight drayage, port handling, and customs tariffs are calculated deterministically to expose true landed cost and EBITDA savings.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-mono">6</span>
+              <span>Dual-Signoff &amp; PO Dispatch</span>
+            </div>
+            <p class="text-slate-400 leading-relaxed">
+              Separation of duties requires both Buyer commercial endorsement and Operations VP authorization before transmitting structured JSON/XML payloads to Oracle NetSuite, SAP S/4HANA, or Odoo 17.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: ASTM Metallurgy -->
+      <section id="section-metallurgy" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-400 font-mono text-lg">03.</span>
+          <span>ASTM Metallurgy &amp; Cryogenic Safety Reference</span>
+        </h2>
+        <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-500/30 text-xs font-sans text-rose-200 leading-relaxed space-y-2">
+          <div class="font-bold flex items-center gap-2 text-white font-display text-sm">
+            <span>🛡️</span>
+            <span>Why General AI Hallucinations Cause Catastrophic Failures</span>
+          </div>
+          <p>
+            General LLMs treat <code>ASTM A105</code> and <code>ASTM A516-70</code> as generic "carbon steel". However, in subsea LNG and cryogenic service operating below -29&deg;C (-20&deg;F), standard A105 undergoes a ductile-to-cleavage transition. Under pressure, it shatters like glass.
+          </p>
+          <p>
+            ForgeOps AI enforces strict compliance with <strong>ASME B31.3 Section 323.2</strong> and mandates Charpy V-Notch impact testing at -46&deg;C (27 Joules minimum) for all cryogenic line items.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 4: Incoterms -->
+      <section id="section-incoterms" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-rose-400 font-mono text-lg">04.</span>
+          <span>Incoterms Normalization Engine</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          Suppliers frequently submit deceptively low invoice totals using <strong>EXW (Ex Works)</strong> terms where the buyer is liable for cross-border transit, customs clearances, and rig-site drayage.
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-white/10 bg-black/50">
+          <table class="w-full text-left font-mono text-xs">
+            <thead class="bg-[#0c0a18] text-slate-400 border-b border-white/10 text-[10px] uppercase">
+              <tr>
+                <th class="p-3">Incoterm</th>
+                <th class="p-3">Freight Liability</th>
+                <th class="p-3">Drayage Surcharge Formula</th>
+                <th class="p-3">Risk Level</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-300">
+              <tr>
+                <td class="p-3 font-bold text-amber-400">EXW (Ex Works)</td>
+                <td class="p-3">Buyer pays 100% of transport</td>
+                <td class="p-3"><code>+ Drayage ($4,800) + Tariff (2.5%) + Cross-Border ($11,200)</code></td>
+                <td class="p-3 text-rose-400 font-bold">HIGH FREIGHT TRAP</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-sky-400">FCA (Free Carrier)</td>
+                <td class="p-3">Seller delivers to port dock</td>
+                <td class="p-3"><code>+ Ocean Freight ($9,800) + US Port Drayage ($2,700)</code></td>
+                <td class="p-3 text-amber-400 font-bold">MODERATE SURCHARGE</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-[#00f59b]">DDP (Delivered Duty Paid)</td>
+                <td class="p-3">Seller pays all freight &amp; duties</td>
+                <td class="p-3"><code>$0.00 Add-on (Guaranteed Plant Delivery)</code></td>
+                <td class="p-3 text-[#00f59b] font-bold">ZERO SURCHARGE ✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 5: ERP Integration Hub -->
+      <section id="section-erp" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-[#00f59b] font-mono text-lg">05.</span>
+          <span>Phase B Production ERP Dispatch Hub</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          Approved reconciliation sessions compile directly into structured JSON and XML payloads for automated ERP transmission:
+        </p>
+
+        <div class="pro-glass-card rounded-2xl overflow-hidden border border-white/10">
+          <div class="p-3 bg-[#0a0815] border-b border-white/10 flex items-center justify-between text-xs font-mono">
+            <span class="text-white font-bold">ORACLE NETSUITE // REST_PURCHASE_ORDER.JSON</span>
+            <button onclick="copySnippet('codeSnippet1')" class="px-2.5 py-1 rounded bg-white/10 hover:bg-rose-500 text-slate-200 text-[10px] font-mono transition">
+              Copy Payload
+            </button>
+          </div>
+          <pre id="codeSnippet1" class="p-4 bg-[#030206] font-mono text-xs text-[#00f59b] overflow-x-auto leading-relaxed select-all">
+{
+  "recordType": "purchaseOrder",
+  "entity": { "id": "VENDOR_9012", "name": "Vulcan Forging Inc." },
+  "tranDate": "2026-10-27",
+  "incoterms": "DDP",
+  "approvalStatus": "2",
+  "memo": "ForgeOps Auto-Reconciliation: RFQ-8801 / ASTM A516-70 Verified",
+  "itemList": [
+    { "item": "FLANGE-8-INCH", "quantity": 250, "rate": 488.00, "amount": 122000.00 },
+    { "item": "VALVE-SUBSEA-3", "quantity": 60, "rate": 1850.00, "amount": 111000.00 },
+    { "item": "INLAND-FREIGHT-DDP", "quantity": 1, "rate": 8200.00, "amount": 8200.00 }
+  ],
+  "total": 241200.00,
+  "auditChainSha256": "8f9a12c40e791b8d5a23f1c900e2b58d..."
+}
+          </pre>
+        </div>
+      </section>
+
+      <!-- Section 6: REST API Reference -->
+      <section id="section-api" class="space-y-4">
+        <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+          <span class="text-rose-400 font-mono text-lg">06.</span>
+          <span>REST API Reference &amp; CLI Integration</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          ForgeOps AI exposes 53 production REST endpoints compliant with OpenAPI 3.1. Interactive Swagger documentation is available at <code>/api/v1/docs</code> when the local server is running.
+        </p>
+
+        <div class="space-y-3 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-[#00f59b] font-bold">GET</span>
+              <span class="text-white">/api/v1/health</span>
+            </div>
+            <span class="text-slate-400 text-[11px] font-sans">System health, version &amp; schema status</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">POST</span>
+              <span class="text-white">/api/v1/requests/{id}/documents</span>
+            </div>
+            <span class="text-slate-400 text-[11px] font-sans">Upload quotation PDF, XLSX, CSV, DOCX</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">POST</span>
+              <span class="text-white">/api/v1/comparisons/{id}/purchase-orders</span>
+            </div>
+            <span class="text-slate-400 text-[11px] font-sans">Compile approved PO &amp; seal Merkle block</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#030206] border-t border-white/5 py-8 px-4 sm:px-6 lg:px-8 text-xs font-mono text-slate-400 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <strong class="text-white font-display">FORGEOPS AI // DOCUMENTATION CENTER</strong> &bull; Industrial Procurement Intelligence.
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-500">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <span>•</span>
+        <a href="app.html" class="hover:text-white transition">Operations Platform</a>
+        <span>•</span>
+        <a href="about.html" class="hover:text-white transition">About Us</a>
+        <span>•</span>
+        <a href="login.html" class="hover:text-white transition">Terminal Login</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copySnippet(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+        alert('Code snippet copied to clipboard!');
+      });
+    }
+
+    function filterDocTopics(query) {
+      const q = query.toLowerCase();
+      const items = document.querySelectorAll('.doc-nav-item');
+      items.forEach(it => {
+        const text = it.textContent.toLowerCase();
+        if (text.includes(q)) {
+          it.style.display = 'block';
+        } else {
+          it.style.display = 'none';
+        }
+      });
+    }
+
+    function setTheme(themeName) {
+      const bg = document.getElementById('atmosphericBackground');
+      if (!bg) return;
+      ['cloudy-pink-atmosphere', 'theme-space-stars', 'theme-amber-forge'].forEach(t => bg.classList.remove(t));
+      bg.classList.add(themeName === 'cloudy-pink' ? 'cloudy-pink-atmosphere' : 'theme-' + themeName);
+    }
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeOps AI // Start Enterprise Pilot &amp; Provision Workspace</title>
+  <meta name="description" content="Register an authorized enterprise tenant for ForgeOps AI industrial quotation reconciliation and ERP dispatch automation.">
+
+  <!-- Enterprise Fonts: Chakra Petch, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            },
+            cyber: {
+              emerald: '#00f59b',
+              amber: '#ffb800',
+              cyan: '#00d4ff',
+              crimson: '#ff3366',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            tech: ['Space Grotesk', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #08070e;
+      --card-bg: rgba(16, 14, 27, 0.92);
+      --card-border: rgba(244, 63, 94, 0.18);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+      --pink-glow: rgba(244, 63, 94, 0.4);
+      --cyber-emerald: #00f59b;
+    }
+
+    html {
+      background-color: #08070e !important;
+      color-scheme: dark !important;
+    }
+
+    body {
+      background-color: #08070e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.22) 0%, rgba(217, 70, 239, 0.12) 35%, rgba(255, 85, 0, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.16) 0%, rgba(236, 72, 153, 0.07) 40%, transparent 70%),
+        radial-gradient(circle at 88% 35%, rgba(251, 146, 60, 0.15) 0%, rgba(244, 63, 94, 0.08) 45%, transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 65%, rgba(217, 70, 239, 0.13) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 900px 900px, 1100px 1100px, 48px 48px, 48px 48px !important;
+    }
+
+    .theme-space-stars {
+      background-color: #030408 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%),
+        radial-gradient(circle at 20% 40%, rgba(139, 92, 246, 0.10) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge {
+      background-color: #080503 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 85, 0, 0.22) 0%, rgba(245, 158, 11, 0.12) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 120, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 120, 0, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.94) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.20) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #fed7aa 55%, #f43f5e 90%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(244, 63, 94, 0.45));
+    }
+
+    .otp-digit {
+      width: 48px;
+      height: 54px;
+      text-align: center;
+      font-size: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      background: rgba(14, 11, 24, 0.9);
+      border: 1.5px solid rgba(244, 63, 94, 0.25);
+      border-radius: 10px;
+      color: #ffffff;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .otp-digit:focus {
+      outline: none;
+      border-color: #f43f5e;
+      box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#08070e]">
+
+  <!-- Atmospheric Background -->
+  <div id="atmosphericBackground" class="fixed inset-0 pointer-events-none -z-50 w-full h-full cloudy-pink-atmosphere"></div>
+  <canvas id="ambientParticlesCanvas" class="fixed inset-0 pointer-events-none z-[1] w-full h-full"></canvas>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/20 shadow-lg">
+    <div class="border-b border-rose-500/10 bg-[#050409] px-4 py-1.5 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-400 gap-2">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-rose-400 font-bold font-display tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          ENTERPRISE ONBOARDING ENGINE // TENANT PROVISIONING
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="setTheme('cloudy-pink')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-rose-500 bg-rose-500/25 text-rose-200 font-bold">🌸 Cloudy Pink</button>
+        <button onclick="setTheme('space-stars')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">🌌 Deep Space</button>
+        <button onclick="setTheme('amber-forge')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">🔥 Amber Forge</button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-display font-black tracking-wide text-lg group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#ec4899] flex items-center justify-center text-white text-xs font-black shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+          FO
+        </span>
+        <span class="tracking-tight">FORGEOPS <span class="text-rose-400">AI</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-rose-400 transition whitespace-nowrap">Home</a>
+        <a href="app.html" class="hover:text-rose-400 transition whitespace-nowrap">Operations Platform</a>
+        <a href="docs.html" class="hover:text-rose-400 transition whitespace-nowrap">User Guide &amp; Docs</a>
+        <a href="about.html" class="hover:text-rose-400 transition whitespace-nowrap">About Us</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-400 hidden sm:inline">Already registered?</span>
+        <a href="login.html" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-display font-bold uppercase tracking-wider transition">
+          Sign In
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SIGN UP CONTAINER ================= -->
+  <main class="flex-1 flex items-center justify-center px-4 py-12 relative z-10">
+    <div class="max-w-lg w-full pro-glass-card rounded-2xl p-6 sm:p-8 border border-rose-500/25 shadow-2xl relative overflow-hidden space-y-6">
+      
+      <!-- Glow -->
+      <div class="absolute -top-16 -left-16 w-48 h-48 bg-rose-500/15 blur-3xl pointer-events-none rounded-full"></div>
+
+      <!-- Header -->
+      <div class="text-center space-y-2 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-mono text-[10px] font-bold uppercase tracking-wider">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f43f5e] animate-ping"></span>
+          14-DAY FULL-FEATURED ENTERPRISE PILOT
+        </div>
+        <h1 class="text-2xl font-display font-black text-white tracking-tight hero-gradient-text">
+          PROVISION YOUR INDUSTRIAL TENANT
+        </h1>
+        <p class="text-xs text-slate-400 font-sans leading-relaxed">
+          Initialize your dedicated organization workspace with automated quotation ingestion, ASTM metallurgy verification, and ERP connector.
+        </p>
+      </div>
+
+      <!-- Step 1: Registration Form -->
+      <form id="signupForm" onsubmit="handleSignupStep1(event)" class="space-y-4">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="block text-xs font-mono text-slate-300 font-bold">Full Name</label>
+            <input type="text" id="regName" required class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none transition" placeholder="John Doe">
+          </div>
+          <div class="space-y-1">
+            <label class="block text-xs font-mono text-slate-300 font-bold">Company / Organization</label>
+            <input type="text" id="regCompany" required class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none transition" placeholder="Acme Industrial Systems">
+          </div>
+        </div>
+
+        <!-- Work Email with Anti-Sybil Defense -->
+        <div class="space-y-1">
+          <label class="block text-xs font-mono text-slate-300 font-bold">Corporate Work Email</label>
+          <input type="email" id="regEmail" required oninput="validateEmailSybil(this.value)" class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none transition" placeholder="john.doe@acme-industrial.com">
+          <div id="emailSybilWarning" class="hidden text-[10px] text-rose-400 font-sans">
+            ⚠️ Disposable email domains are blocked. Please provide an authentic corporate email address.
+          </div>
+        </div>
+
+        <!-- Industry Vertical -->
+        <div class="space-y-1">
+          <label class="block text-xs font-mono text-slate-300 font-bold">Industry Sector</label>
+          <select id="regIndustry" class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none transition">
+            <option value="subsea">Subsea &amp; Cryogenic Piping (ASME B16.5 &bull; ASTM A516-70)</option>
+            <option value="oilgas">Oil &amp; Gas Refinery Infrastructure (API 6D)</option>
+            <option value="aerospace">Heavy Aerospace &amp; Defense Subcontracting</option>
+            <option value="power">Nuclear &amp; Thermal Power Generation</option>
+            <option value="valves">Industrial Valve &amp; Forged Flange Manufacturing</option>
+          </select>
+        </div>
+
+        <!-- Password with Strength Meter -->
+        <div class="space-y-1">
+          <label class="block text-xs font-mono text-slate-300 font-bold">Master Terminal Password</label>
+          <input type="password" id="regPassword" required oninput="evaluatePasswordStrength(this.value)" class="w-full bg-[#0a0815] border border-white/15 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none transition" placeholder="Minimum 8 characters with numbers &amp; symbols">
+          
+          <!-- Strength Bar -->
+          <div class="h-1.5 w-full bg-black/60 rounded-full overflow-hidden mt-1.5">
+            <div id="pwdStrengthBar" class="h-full w-0 bg-rose-500 transition-all duration-300"></div>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-slate-400">
+            <span>Security Strength:</span>
+            <span id="pwdStrengthText" class="text-rose-400">Too Short</span>
+          </div>
+        </div>
+
+        <!-- Agreement -->
+        <div class="pt-1">
+          <label class="flex items-start gap-2 text-xs font-sans text-slate-400 cursor-pointer">
+            <input type="checkbox" required checked class="mt-0.5 rounded bg-[#0a0815] border-white/20 text-rose-500 focus:ring-rose-500">
+            <span>I agree to the Enterprise Terms of Service, Air-Gapped Data Privacy Charter, and Mutual NDA.</span>
+          </label>
+        </div>
+
+        <!-- Submit Step 1 Button -->
+        <button type="submit" id="submitStep1Btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] hover:from-[#ff6611] hover:to-[#fb7185] text-white font-display font-bold text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(244,63,94,0.4)] flex items-center justify-center gap-2">
+          <span>Continue to Verification</span>
+          <span>→</span>
+        </button>
+
+      </form>
+
+      <!-- Step 2: 6-Digit Email Verification (Initially Hidden) -->
+      <div id="verificationStep" class="hidden space-y-5">
+        <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs font-sans text-emerald-300 space-y-1">
+          <div class="font-bold flex items-center gap-2 font-display">
+            <span>📧</span>
+            <span>Cryptographic Verification Code Dispatched</span>
+          </div>
+          <p class="text-[11px] text-slate-300">
+            A single-use 6-digit cryptographic verification code has been dispatched to your corporate inbox.
+          </p>
+        </div>
+
+        <!-- 6-Digit Inputs -->
+        <div class="space-y-2">
+          <label class="block text-xs font-mono text-slate-300 font-bold">Enter 6-Digit Verification Code</label>
+          <div class="flex items-center justify-between gap-1.5">
+            <input type="text" maxlength="1" class="otp-digit" id="v1" oninput="handleStep2Input(1, event)" value="9">
+            <input type="text" maxlength="1" class="otp-digit" id="v2" oninput="handleStep2Input(2, event)" value="0">
+            <input type="text" maxlength="1" class="otp-digit" id="v3" oninput="handleStep2Input(3, event)" value="4">
+            <input type="text" maxlength="1" class="otp-digit" id="v4" oninput="handleStep2Input(4, event)" value="1">
+            <input type="text" maxlength="1" class="otp-digit" id="v5" oninput="handleStep2Input(5, event)" value="8">
+            <input type="text" maxlength="1" class="otp-digit" id="v6" oninput="handleStep2Input(6, event)" value="8">
+          </div>
+        </div>
+
+        <button onclick="finalizeProvisioning()" id="finalizeBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-display font-bold text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(244,63,94,0.4)] flex items-center justify-center gap-2">
+          <span>Confirm &amp; Launch Enterprise Workspace</span>
+          <span>🚀</span>
+        </button>
+      </div>
+
+      <!-- Footer Link -->
+      <div class="text-center pt-2 border-t border-white/10 text-xs text-slate-400 font-sans">
+        Already have enterprise credentials?
+        <a href="login.html" class="text-rose-400 hover:text-white font-bold transition ml-1">
+          Sign In Here →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#030206] border-t border-white/5 py-6 px-4 text-xs font-mono text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div>
+        <strong class="text-white font-display">FORGEOPS AI</strong> &bull; Industrial Procurement Intelligence &amp; Autonomous ERP Dispatch.
+      </div>
+      <div class="text-[11px] text-slate-500">
+        Zero OCR Hallucination Guarantee &bull; ASME B16.5 &bull; ASTM A516-70
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Anti-Sybil Validation (Block burner domains)
+    const disposableDomains = ['tempmail.com', 'mailinator.com', '10minutemail.com', 'guerrillamail.com', 'throwawaymail.com'];
+    
+    function validateEmailSybil(email) {
+      const warning = document.getElementById('emailSybilWarning');
+      const domain = email.split('@')[1]?.toLowerCase();
+      if (disposableDomains.includes(domain)) {
+        warning.classList.remove('hidden');
+        return false;
+      } else {
+        warning.classList.add('hidden');
+        return true;
+      }
+    }
+
+    // Password Strength Meter
+    function evaluatePasswordStrength(pwd) {
+      const bar = document.getElementById('pwdStrengthBar');
+      const text = document.getElementById('pwdStrengthText');
+      let score = 0;
+      if (pwd.length >= 8) score += 25;
+      if (pwd.length >= 12) score += 25;
+      if (/[0-9]/.test(pwd)) score += 25;
+      if (/[^A-Za-z0-9]/.test(pwd)) score += 25;
+
+      bar.style.width = score + '%';
+      if (score <= 25) {
+        bar.className = 'h-full bg-rose-500 transition-all duration-300';
+        text.textContent = 'Weak';
+        text.className = 'text-rose-400';
+      } else if (score <= 50) {
+        bar.className = 'h-full bg-amber-500 transition-all duration-300';
+        text.textContent = 'Moderate';
+        text.className = 'text-amber-400';
+      } else if (score <= 75) {
+        bar.className = 'h-full bg-blue-500 transition-all duration-300';
+        text.textContent = 'Strong';
+        text.className = 'text-blue-400';
+      } else {
+        bar.className = 'h-full bg-[#00f59b] transition-all duration-300';
+        text.textContent = 'Enterprise Grade ✓';
+        text.className = 'text-[#00f59b]';
+      }
+    }
+
+    function handleSignupStep1(e) {
+      e.preventDefault();
+      const email = document.getElementById('regEmail').value;
+      if (!validateEmailSybil(email)) {
+        alert('Please use a valid corporate email address.');
+        return;
+      }
+
+      document.getElementById('signupForm').classList.add('hidden');
+      document.getElementById('verificationStep').classList.remove('hidden');
+    }
+
+    function handleStep2Input(index, event) {
+      if (event.target.value && index < 6) {
+        const next = document.getElementById('v' + (index + 1));
+        if (next) next.focus();
+      }
+    }
+
+    function finalizeProvisioning() {
+      const btn = document.getElementById('finalizeBtn');
+      btn.innerHTML = '<span>Provisioning Tenant #ORG-904... ⚙️</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '<span>Sealing Genesis Audit Block #106... 🔒</span>';
+      }, 700);
+
+      setTimeout(() => {
+        btn.innerHTML = '<span>Workspace Activated! Redirecting... 🚀</span>';
+        setTimeout(() => {
+          window.location.href = 'app.html';
+        }, 600);
+      }, 1400);
+    }
+
+    function setTheme(themeName) {
+      const bg = document.getElementById('atmosphericBackground');
+      if (!bg) return;
+      ['cloudy-pink-atmosphere', 'theme-space-stars', 'theme-amber-forge'].forEach(t => bg.classList.remove(t));
+      bg.classList.add(themeName === 'cloudy-pink' ? 'cloudy-pink-atmosphere' : 'theme-' + themeName);
+    }
+  </script>
+
+</body>
+</html>

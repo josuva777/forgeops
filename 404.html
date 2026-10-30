@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 // Route Not Found — ForgeOps AI</title>
+  <meta name="description" content="The requested industrial telemetry route or procurement document could not be located in the sovereign namespace.">
+
+  <!-- Enterprise Fonts: Chakra Petch, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            },
+            cyber: {
+              emerald: '#00f59b',
+              amber: '#ffb800',
+              cyan: '#00d4ff',
+              crimson: '#ff3366',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            tech: ['Space Grotesk', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #08070e;
+      --card-bg: rgba(16, 14, 27, 0.92);
+      --card-border: rgba(244, 63, 94, 0.18);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+      --pink-glow: rgba(244, 63, 94, 0.4);
+      --cyber-emerald: #00f59b;
+    }
+
+    html {
+      background-color: #08070e !important;
+      color-scheme: dark !important;
+    }
+
+    body {
+      background-color: #08070e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.22) 0%, rgba(217, 70, 239, 0.12) 35%, rgba(255, 85, 0, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.16) 0%, rgba(236, 72, 153, 0.07) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 48px 48px, 48px 48px !important;
+    }
+
+    .theme-space-stars {
+      background-color: #030408 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge {
+      background-color: #080503 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 85, 0, 0.22) 0%, rgba(245, 158, 11, 0.12) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 120, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 120, 0, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.94) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.20) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #fed7aa 55%, #f43f5e 90%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(244, 63, 94, 0.45));
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#08070e]">
+
+  <!-- Atmospheric Background -->
+  <div id="atmosphericBackground" class="fixed inset-0 pointer-events-none -z-50 w-full h-full cloudy-pink-atmosphere"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/20 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-display font-black tracking-wide text-lg group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#ec4899] flex items-center justify-center text-white text-xs font-black shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+          FO
+        </span>
+        <span class="tracking-tight">FORGEOPS <span class="text-rose-400">AI</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-rose-400 transition whitespace-nowrap">Home</a>
+        <a href="app.html" class="hover:text-rose-400 transition whitespace-nowrap">Operations Platform</a>
+        <a href="docs.html" class="hover:text-rose-400 transition whitespace-nowrap">Docs</a>
+        <a href="about.html" class="hover:text-rose-400 transition whitespace-nowrap">About Us</a>
+      </nav>
+
+      <a href="app.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white text-xs font-display font-bold uppercase tracking-wider transition">
+        Launch Workspace ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= 404 CONTENT ================= -->
+  <main class="flex-1 flex items-center justify-center px-4 py-16 relative z-10">
+    <div class="max-w-lg w-full pro-glass-card rounded-2xl p-8 sm:p-10 border border-rose-500/25 shadow-2xl text-center space-y-6 relative overflow-hidden">
+      
+      <!-- Glow -->
+      <div class="absolute -top-16 -right-16 w-48 h-48 bg-rose-500/20 blur-3xl pointer-events-none rounded-full"></div>
+
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-400 font-mono text-xs font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          HTTP 404 // ROUTE DISCONNECTED
+        </div>
+
+        <h1 class="text-6xl sm:text-7xl font-display font-black text-white tracking-tight hero-gradient-text">
+          404
+        </h1>
+
+        <div class="text-white font-display font-bold text-lg">
+          INDUSTRIAL TELEMETRY NODE NOT FOUND
+        </div>
+
+        <p class="text-xs text-slate-400 font-sans leading-relaxed max-w-sm mx-auto">
+          The requested endpoint or quotation document is not mapped to an active pipeline in the sovereign enterprise registry.
+        </p>
+      </div>
+
+      <!-- Diagnostic Status Box -->
+      <div class="p-3.5 rounded-xl bg-black/60 border border-white/10 font-mono text-xs text-left space-y-1 text-slate-400">
+        <div>Registry Namespace: <strong class="text-white">SOVEREIGN_TENANT_#ORG-904</strong></div>
+        <div>Error Signature: <span class="text-rose-400">ENDPOINT_UNREACHABLE_OR_DECOMMISSIONED</span></div>
+        <div>Merkle Trace: <span class="text-slate-500">0000_null_void_target</span></div>
+      </div>
+
+      <!-- Action Navigation Buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+        <a href="index.html" class="p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5">
+          <span>← Home Landing</span>
+        </a>
+        <a href="app.html" class="p-3 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-display font-bold text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(244,63,94,0.35)] flex items-center justify-center gap-1.5">
+          <span>Operations Platform ↗</span>
+        </a>
+      </div>
+
+      <!-- Secondary Links -->
+      <div class="pt-2 border-t border-white/10 text-xs text-slate-400 flex justify-center gap-4 font-mono">
+        <a href="docs.html" class="hover:text-white transition">Read Docs</a>
+        <span>•</span>
+        <a href="login.html" class="hover:text-white transition">Terminal Login</a>
+        <span>•</span>
+        <a href="about.html" class="hover:text-white transition">About Us</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#030206] border-t border-white/5 py-6 px-4 text-xs font-mono text-slate-400 text-center">
+    <div class="max-w-7xl mx-auto">
+      &copy; 2026 ForgeOps AI Inc. Deterministic Industrial Intelligence &bull; Air-Gapped Airspace Architecture.
+    </div>
+  </footer>
+
+</body>
+</html>

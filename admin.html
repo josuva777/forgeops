@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <link rel="stylesheet" href="tailwind.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeOps AI // Enterprise Master Admin Console &amp; Fleet Governance</title>
+  <meta name="description" content="Central administrative command center for enterprise tenant governance, quota metering, RBAC isolation, session kill-switches, and air-gapped security audit logs.">
+
+  <!-- Core Enterprise Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <script>
+    if (window.tailwind) {
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #07050e;
+      --card-bg: rgba(16, 14, 27, 0.94);
+      --card-border: rgba(244, 63, 94, 0.22);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+    }
+
+    html, body {
+      background-color: #07050e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #07050e !important;
+      background-image: 
+        radial-gradient(ellipse 90% 65% at 50% 0%, rgba(244, 63, 94, 0.35) 0%, rgba(217, 70, 239, 0.22) 35%, rgba(255, 85, 0, 0.14) 60%, transparent 80%),
+        radial-gradient(circle at 10% 25%, rgba(244, 63, 94, 0.28) 0%, rgba(236, 72, 153, 0.14) 40%, transparent 70%),
+        radial-gradient(circle at 90% 35%, rgba(251, 146, 60, 0.25) 0%, rgba(244, 63, 94, 0.14) 45%, transparent 70%),
+        radial-gradient(ellipse 75% 55% at 50% 65%, rgba(217, 70, 239, 0.24) 0%, rgba(244, 63, 94, 0.12) 50%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 900px 900px, 1100px 1100px, 48px 48px, 48px 48px !important;
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat !important;
+      background-position: center top, left top, right center, center bottom, 0 0, 0 0 !important;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #ffedd5 50%, #f43f5e 85%, #e11d48 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 2px 22px rgba(244, 63, 94, 0.8)) drop-shadow(0 0 50px rgba(255, 85, 0, 0.5)) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.95) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.22) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+    .pro-glass-card:hover {
+      border-color: rgba(244, 63, 94, 0.5) !important;
+    }
+
+    /* .hidden removed to preserve responsive breakpoints */
+    .pointer-events-none { pointer-events: none !important; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#07050e]">
+
+  <!-- Fixed Atmospheric Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 w-full h-full cloudy-pink-atmosphere" style="pointer-events: none !important;"></div>
+
+  <!-- Master Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/15">
+    
+    <!-- Top System Telemetry Ribbon (Hidden on small mobile to prevent header blowout) -->
+    <div class="border-b border-rose-500/10 bg-[#050409]/95 px-4 sm:px-8 py-2 hidden sm:flex items-center justify-between text-[11px] font-mono text-slate-400 gap-3">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-2 text-rose-300 font-bold font-display tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          FORGEOPS // ENTERPRISE MASTER ADMIN CENTER
+        </span>
+        <span class="text-rose-500/30 hidden sm:inline">|</span>
+        <span class="text-slate-300 hidden sm:inline">FLEET GOVERNANCE &bull; SYBIL DEFENSE &bull; RBAC</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/35 text-purple-200 text-[10px] font-mono font-bold tracking-wider">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+          <span>MASTER ADMIN ACCESS (josuva732006@gmail.com)</span>
+        </div>
+        <span class="text-rose-500/30 hidden sm:inline">|</span>
+        <span class="text-[#00f59b] font-mono text-xs font-bold">● FASTAPI LIVE</span>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-1.5 sm:gap-3 group shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#be123c] flex items-center justify-center shadow-[0_0_22px_rgba(244,63,94,0.45)] transition transform group-hover:scale-105">
+          <svg class="w-4 h-4 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 7h20v3l-4 3h-2l-2 8h-4l-1-8H7l-3-3V7zm3 2v1l2 2h10l2-2V9H5z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1 sm:gap-2">
+            <span class="font-display font-black text-sm sm:text-xl tracking-wider text-white">FORGEOPS</span>
+            <span class="px-1 py-0.5 rounded text-[8px] sm:text-[10px] bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-black font-display tracking-widest shadow-sm">ADMIN</span>
+          </div>
+          <div class="hidden sm:block text-[9px] font-mono tracking-widest text-rose-300/90 uppercase -mt-1">Fleet Security Hub</div>
+        </div>
+      </a>
+
+      <!-- Center Simulator Role Switcher (Tests Rule 7 & 9 Lockscreen, xl:flex preserves tablet geometry) -->
+      <div class="hidden xl:flex items-center gap-3 bg-[#0c0a17] border border-white/10 px-3 py-1.5 rounded-xl text-xs font-mono">
+        <span class="text-slate-400">Simulate Identity:</span>
+        <select id="adminRoleTester" onchange="testAdminRole(this.value)" class="bg-[#141024] text-rose-300 border border-rose-500/30 rounded px-2.5 py-1 focus:outline-none cursor-pointer">
+          <option value="SUPER_ADMIN" selected>SUPER_ADMIN (Supreme Master: josuva732006@gmail.com)</option>
+          <option value="AUDITOR">AUDITOR (Read-Only QA Reviewer)</option>
+          <option value="VIEWER">VIEWER (Non-Admin Customer User)</option>
+        </select>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono transition hidden md:inline">
+          Customer Portal
+        </a>
+        <a href="app.html" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono transition hidden md:inline">
+          Operations Desk
+        </a>
+        <a href="index.html" class="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-display font-bold tracking-wide transition flex items-center gap-1 sm:gap-1.5 shadow-sm whitespace-nowrap">
+          <span class="hidden sm:inline">&larr; Landing Page</span>
+          <span class="sm:hidden">&larr; Home</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= HTTP 403 ACCESS DENIED LOCKSCREEN (RULE 7) ================= -->
+  <div id="forbiddenLockscreen" class="hidden max-w-2xl mx-auto my-16 px-4 relative z-10">
+    <div class="pro-glass-card rounded-2xl p-8 border-2 border-red-500/40 text-center space-y-6 shadow-2xl">
+      <div class="w-16 h-16 rounded-2xl bg-red-500/20 border border-red-500/40 text-red-400 mx-auto flex items-center justify-center text-3xl shadow-[0_0_30px_rgba(239,68,68,0.35)]">
+        🚫
+      </div>
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-300 font-mono text-xs font-bold uppercase">
+          HTTP 403 ACCESS DENIED
+        </div>
+        <h2 class="text-2xl font-display font-black text-white">RESTRICTED TO SUPREME MASTER ADMIN</h2>
+        <p class="text-sm text-slate-300 font-sans max-w-md mx-auto leading-relaxed">
+          In accordance with Zero-Trust Security Rule 7 &amp; 9, Enterprise Admin Consoles return an HTTP 403 Lockscreen to non-administrative identities. Only the authenticated Supreme Master Admin (<strong>josuva732006@gmail.com</strong>) has access.
+        </p>
+      </div>
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button onclick="elevateToMasterAdmin()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-display font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition">
+          Switch to Supreme Master Admin &rarr;
+        </button>
+        <a href="portal.html" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-mono text-xs transition">
+          Return to Customer Portal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN COMMAND CENTER WORKSPACE ================= -->
+  <main id="adminContentWorkspace" class="w-full flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
+    
+    <!-- Top System Telemetry & Quota Governance Banner -->
+    <div class="pro-glass-card rounded-2xl p-6 sm:p-8 border border-rose-500/30 relative overflow-hidden">
+      <div class="absolute -top-12 -right-12 w-80 h-80 bg-orange-500/15 blur-3xl pointer-events-none rounded-full"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-mono text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+            <span>FLEET SECURITY GOVERNANCE // ACTIVE</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-display font-black text-white tracking-tight hero-gradient-text">
+            Enterprise Tenant Fleet &amp; Quota Governance
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 font-sans max-w-3xl leading-relaxed">
+            Multi-tenant RBAC management, active session revocation kill-switches, monthly quota metering, Anti-Sybil defense verification, and cryptographic financial receipt ledgers.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <button onclick="triggerEmergencyKillswitch()" class="px-5 py-3 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-300 font-display font-bold text-xs uppercase tracking-wider transition flex items-center gap-2">
+            <span>🚨 Emergency Fleet Kill-Switch</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Quota Metering Bar (Rule 7) -->
+      <div class="mt-8 pt-6 border-t border-white/10 space-y-3 font-mono">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-300 font-sans font-bold">Global Tenant Monthly Quota:</span>
+            <span id="quotaUsageText" class="text-rose-400 font-bold">42,850 / 50,000 API Calls (85.7% Consumed)</span>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">★ SecOps Team Tier</span>
+          </div>
+          <button onclick="expandTenantQuota()" class="text-xs text-[#00f59b] hover:underline font-bold">
+            + Expand Quota to 1,000,000 Calls (Enterprise Defense)
+          </button>
+        </div>
+        <div class="w-full h-3 bg-black/60 rounded-full overflow-hidden p-0.5 border border-white/10">
+          <div id="quotaProgressBar" class="h-full bg-gradient-to-r from-[#ff5500] via-[#f43f5e] to-[#ec4899] rounded-full transition-all duration-500" style="width: 85.7%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-Col Grid: Tenant Fleet Governance & Active User Sessions -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left 7 Cols: Active Organizations & Tenants Table -->
+      <div class="lg:col-span-7 pro-glass-card rounded-2xl p-6 border border-white/10 space-y-5 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div>
+            <h3 class="font-display font-bold text-base text-white">Active Tenant Organizations</h3>
+            <p class="text-[11px] text-slate-400 font-sans">Hardware-isolated cryptographic databases per customer tenant.</p>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-[#00f59b]/15 text-[#00f59b] font-mono text-[10px] font-bold">
+            3 ACTIVE TENANTS
+          </span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-white/10 bg-black/40">
+          <table class="w-full text-left font-mono text-xs">
+            <thead class="bg-[#0b0918] text-slate-400 border-b border-white/10 text-[10px] uppercase">
+              <tr>
+                <th class="p-3">Organization / Slug</th>
+                <th class="p-3">Plan / Quota</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-200">
+              <tr id="tenantRow-904" class="hover:bg-white/5 transition">
+                <td class="p-3">
+                  <div class="font-bold text-white">Acme Industrial Systems</div>
+                  <div class="text-[10px] text-rose-400 font-mono">#ORG-904 &bull; Bayport, TX</div>
+                </td>
+                <td class="p-3">
+                  <div class="text-white">Enterprise Defense</div>
+                  <div class="text-[10px] text-slate-400">18,400 / 25,000 calls</div>
+                </td>
+                <td class="p-3">
+                  <span id="tenantStatus-904" class="px-2 py-0.5 rounded bg-emerald-500/20 text-[#00f59b] text-[10px] font-bold">ACTIVE</span>
+                </td>
+                <td class="p-3 text-right">
+                  <button onclick="toggleTenantStatus('904')" id="tenantActionBtn-904" class="px-2.5 py-1 rounded bg-red-500/20 hover:bg-red-500/30 text-red-300 text-[10px] font-bold transition">
+                    Suspend
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="tenantRow-512" class="hover:bg-white/5 transition">
+                <td class="p-3">
+                  <div class="font-bold text-white">Vulcan Forging Inc.</div>
+                  <div class="text-[10px] text-slate-400 font-mono">#ORG-512 &bull; Houston, TX</div>
+                </td>
+                <td class="p-3">
+                  <div class="text-white">SecOps Team</div>
+                  <div class="text-[10px] text-slate-400">14,200 / 15,000 calls</div>
+                </td>
+                <td class="p-3">
+                  <span id="tenantStatus-512" class="px-2 py-0.5 rounded bg-emerald-500/20 text-[#00f59b] text-[10px] font-bold">ACTIVE</span>
+                </td>
+                <td class="p-3 text-right">
+                  <button onclick="toggleTenantStatus('512')" id="tenantActionBtn-512" class="px-2.5 py-1 rounded bg-red-500/20 hover:bg-red-500/30 text-red-300 text-[10px] font-bold transition">
+                    Suspend
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="tenantRow-780" class="hover:bg-white/5 transition">
+                <td class="p-3">
+                  <div class="font-bold text-white">Precision Flow Systems</div>
+                  <div class="text-[10px] text-slate-400 font-mono">#ORG-780 &bull; Rotterdam, NL</div>
+                </td>
+                <td class="p-3">
+                  <div class="text-white">Starter Plan</div>
+                  <div class="text-[10px] text-slate-400">10,250 / 10,000 calls</div>
+                </td>
+                <td class="p-3">
+                  <span id="tenantStatus-780" class="px-2 py-0.5 rounded bg-emerald-500/20 text-[#00f59b] text-[10px] font-bold">ACTIVE</span>
+                </td>
+                <td class="p-3 text-right">
+                  <button onclick="toggleTenantStatus('780')" id="tenantActionBtn-780" class="px-2.5 py-1 rounded bg-red-500/20 hover:bg-red-500/30 text-red-300 text-[10px] font-bold transition">
+                    Suspend
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right 5 Cols: Active User Sessions & Kill-Switch Controls (Rule 7) -->
+      <div class="lg:col-span-5 pro-glass-card rounded-2xl p-6 border border-white/10 space-y-5 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div>
+            <h3 class="font-display font-bold text-base text-white">Active Sessions &amp; Sybil Defense</h3>
+            <p class="text-[11px] text-slate-400 font-sans">Hardware-bound session token tracking.</p>
+          </div>
+          <span class="text-xs font-mono text-[#00f59b] font-bold">ZERO LEAKS</span>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs">
+          <!-- Session 1: Master Admin -->
+          <div class="p-3 rounded-xl bg-black/40 border border-purple-500/30 space-y-1">
+            <div class="flex items-center justify-between text-white font-bold">
+              <span>josuva732006@gmail.com</span>
+              <span class="text-[10px] text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded">SUPER_ADMIN</span>
+            </div>
+            <div class="text-[10px] text-slate-400">IP: 192.168.1.104 &bull; Device: Windows Chrome &bull; Active Now</div>
+          </div>
+
+          <!-- Session 2: John Doe (Buyer) -->
+          <div id="sessionCard-john" class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between text-white font-bold">
+              <span>john.doe@acme-industrial.com</span>
+              <button onclick="terminateSession('john')" class="text-[10px] bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/40 px-2 py-0.5 rounded transition">
+                Kill Session ✕
+              </button>
+            </div>
+            <div class="text-[10px] text-slate-400">IP: 142.250.190.46 &bull; Session: #tok_9801_act &bull; BUYER</div>
+          </div>
+
+          <!-- Session 3: Sarah Jenkins (Approver) -->
+          <div id="sessionCard-sarah" class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between text-white font-bold">
+              <span>sarah.jenkins@acme-industrial.com</span>
+              <button onclick="terminateSession('sarah')" class="text-[10px] bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/40 px-2 py-0.5 rounded transition">
+                Kill Session ✕
+              </button>
+            </div>
+            <div class="text-[10px] text-slate-400">IP: 172.56.21.89 &bull; Session: #tok_4412_act &bull; APPROVER</div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-black/60 border border-white/5 text-[11px] font-mono text-slate-400 space-y-1">
+          <div class="text-white font-bold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#00f59b]"></span>
+            <span>Anti-Sybil Defense Filter Status: ACTIVE</span>
+          </div>
+          <div>Disposable email domains (mailinator, tempmail, etc.) automatically blocked at registration.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Section: Cryptographic Financial Ledger (Rule 16) -->
+    <div class="pro-glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-5 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 gap-2">
+        <div>
+          <h3 class="font-display font-bold text-base text-white">Immutable Financial Audit Ledger (Rule 16)</h3>
+          <p class="text-[11px] text-slate-400 font-sans">Every transaction writes a tamper-evident cryptographic block to persistent SQLite storage.</p>
+        </div>
+        <div class="text-xs font-mono text-[#00f59b] font-bold">
+          SHA-256 HASH CHAIN: TAMPER FREE
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1">
+          <div class="text-[10px] text-slate-400 flex justify-between">
+            <span>TX-BLOCK #8901</span>
+            <span class="text-[#00f59b] font-bold">CONFIRMED</span>
+          </div>
+          <div class="text-white font-bold">Enterprise Defense Plan ($1,499.00)</div>
+          <div class="text-[10px] text-rose-300 truncate">Hash: 8a7f9b0c12e... (Acme Industrial)</div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1">
+          <div class="text-[10px] text-slate-400 flex justify-between">
+            <span>TX-BLOCK #8902</span>
+            <span class="text-[#00f59b] font-bold">CONFIRMED</span>
+          </div>
+          <div class="text-white font-bold">SecOps Team Plan ($499.00)</div>
+          <div class="text-[10px] text-rose-300 truncate">Hash: b12c45e890f... (Vulcan Forging)</div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1">
+          <div class="text-[10px] text-slate-400 flex justify-between">
+            <span>TX-BLOCK #8903</span>
+            <span class="text-amber-300 font-bold">PROVISIONED</span>
+          </div>
+          <div class="text-white font-bold">Quota Top-up 50,000 Calls ($299.00)</div>
+          <div class="text-[10px] text-rose-300 truncate">Hash: c78d901ef23... (Precision Flow)</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= MASTER ADMIN JAVASCRIPT LOGIC ================= -->
+  <script>
+    function testAdminRole(role) {
+      const lockscreen = document.getElementById('forbiddenLockscreen');
+      const content = document.getElementById('adminContentWorkspace');
+      if (role !== 'SUPER_ADMIN') {
+        lockscreen.classList.remove('hidden');
+        content.classList.add('hidden');
+      } else {
+        lockscreen.classList.add('hidden');
+        content.classList.remove('hidden');
+      }
+    }
+
+    function elevateToMasterAdmin() {
+      const select = document.getElementById('adminRoleTester');
+      if (select) select.value = 'SUPER_ADMIN';
+      testAdminRole('SUPER_ADMIN');
+    }
+
+    function toggleTenantStatus(orgId) {
+      const statusEl = document.getElementById('tenantStatus-' + orgId);
+      const btnEl = document.getElementById('tenantActionBtn-' + orgId);
+      if (!statusEl || !btnEl) return;
+
+      if (statusEl.textContent.trim() === 'ACTIVE') {
+        statusEl.textContent = 'SUSPENDED';
+        statusEl.className = 'px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold';
+        btnEl.textContent = 'Reactivate';
+        btnEl.className = 'px-2.5 py-1 rounded bg-[#00f59b]/20 hover:bg-[#00f59b]/30 text-[#00f59b] text-[10px] font-bold transition';
+      } else {
+        statusEl.textContent = 'ACTIVE';
+        statusEl.className = 'px-2 py-0.5 rounded bg-emerald-500/20 text-[#00f59b] text-[10px] font-bold';
+        btnEl.textContent = 'Suspend';
+        btnEl.className = 'px-2.5 py-1 rounded bg-red-500/20 hover:bg-red-500/30 text-red-300 text-[10px] font-bold transition';
+      }
+    }
+
+    function terminateSession(userKey) {
+      const card = document.getElementById('sessionCard-' + userKey);
+      if (card) {
+        card.style.opacity = '0.4';
+        card.innerHTML = '<div class="text-red-400 font-bold text-xs py-2 flex items-center justify-between"><span>Session Terminated &amp; Token Revoked ✓</span><span class="text-[10px] text-slate-500">HTTP 401 Dispatched</span></div>';
+      }
+    }
+
+    function expandTenantQuota() {
+      const progressBar = document.getElementById('quotaProgressBar');
+      const usageText = document.getElementById('quotaUsageText');
+      if (progressBar) progressBar.style.width = '4.2%';
+      if (usageText) {
+        usageText.textContent = '42,850 / 1,000,000 API Calls (4.2% Consumed)';
+        usageText.className = 'text-[#00f59b] font-bold';
+      }
+      alert('Enterprise Defense Quota Allocation Confirmed: Expanded to 1,000,000 Monthly Calls in persistent storage.');
+    }
+
+    function triggerEmergencyKillswitch() {
+      if (confirm('CAUTION: Are you sure you want to trigger the Emergency Fleet Lockdown? This will freeze all incoming API requests and require Supreme Master Admin cryptographic authentication to unlock.')) {
+        alert('EMERGENCY LOCKDOWN ACTIVATED: All active tenant API tunnels frozen.');
+      }
+    }
+  </script>
+</body>
+</html>

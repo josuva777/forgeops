@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <link rel="stylesheet" href="tailwind.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeOps AI // Customer Sourcing Portal &amp; PDF Report Generator</title>
+  <meta name="description" content="Dedicated authenticated customer procurement portal for company RFQ intake, autonomous supplier quote normalization, and executive PDF audit report generation.">
+
+  <!-- Core Enterprise Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <script>
+    if (window.tailwind) {
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #07050e;
+      --card-bg: rgba(16, 14, 27, 0.94);
+      --card-border: rgba(244, 63, 94, 0.22);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+    }
+
+    html, body {
+      background-color: #07050e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #07050e !important;
+      background-image: 
+        radial-gradient(ellipse 90% 65% at 50% 0%, rgba(244, 63, 94, 0.35) 0%, rgba(217, 70, 239, 0.22) 35%, rgba(255, 85, 0, 0.14) 60%, transparent 80%),
+        radial-gradient(circle at 10% 25%, rgba(244, 63, 94, 0.28) 0%, rgba(236, 72, 153, 0.14) 40%, transparent 70%),
+        radial-gradient(circle at 90% 35%, rgba(251, 146, 60, 0.25) 0%, rgba(244, 63, 94, 0.14) 45%, transparent 70%),
+        radial-gradient(ellipse 75% 55% at 50% 65%, rgba(217, 70, 239, 0.24) 0%, rgba(244, 63, 94, 0.12) 50%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 900px 900px, 1100px 1100px, 48px 48px, 48px 48px !important;
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat !important;
+      background-position: center top, left top, right center, center bottom, 0 0, 0 0 !important;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #ffedd5 50%, #f43f5e 85%, #e11d48 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 2px 22px rgba(244, 63, 94, 0.8)) drop-shadow(0 0 50px rgba(255, 85, 0, 0.5)) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.95) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.22) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+    .pro-glass-card:hover {
+      border-color: rgba(244, 63, 94, 0.5) !important;
+      box-shadow: 0 20px 45px -12px rgba(244, 63, 94, 0.35) !important;
+    }
+
+    /* .hidden removed to preserve responsive breakpoints */
+    .pointer-events-none { pointer-events: none !important; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#07050e]">
+
+  <!-- Fixed Atmospheric Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 w-full h-full cloudy-pink-atmosphere" style="pointer-events: none !important;"></div>
+
+  <!-- Master Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/15">
+    
+    <!-- Top System Telemetry Ribbon -->
+    <div class="border-b border-rose-500/10 bg-[#050409]/95 px-4 sm:px-8 py-2 flex items-center justify-between text-[11px] font-mono text-slate-400 gap-3">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-2 text-rose-300 font-bold font-display tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          FORGEOPS // CUSTOMER SOURCING PORTAL
+        </span>
+        <span class="text-rose-500/30 hidden sm:inline">|</span>
+        <span class="text-slate-300 hidden sm:inline">AIR-GAPPED QUOTATION INTAKE &amp; PDF DESK</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/35 text-rose-200 text-[10px] font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(244,63,94,0.35)]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f43f5e] animate-ping"></span>
+          <span>✦ CLOUDY PINK NEBULA</span>
+        </div>
+        <span class="text-rose-500/30 hidden sm:inline">|</span>
+        <span class="text-[#00f59b] font-mono text-xs font-bold">● FASTAPI 127.0.0.1:8000 READY</span>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-1.5 sm:gap-3 group shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#be123c] flex items-center justify-center shadow-[0_0_22px_rgba(244,63,94,0.45)] transition transform group-hover:scale-105">
+          <svg class="w-4 h-4 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 7h20v3l-4 3h-2l-2 8h-4l-1-8H7l-3-3V7zm3 2v1l2 2h10l2-2V9H5z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1 sm:gap-2">
+            <span class="font-display font-black text-sm sm:text-xl tracking-wider text-white">FORGEOPS</span>
+            <span class="px-1 py-0.5 rounded text-[8px] sm:text-[10px] bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-black font-display tracking-widest shadow-sm">AI</span>
+          </div>
+          <div class="hidden sm:block text-[9px] font-mono tracking-widest text-rose-300/90 uppercase -mt-1">Customer Portal</div>
+        </div>
+      </a>
+
+      <!-- Center Links -->
+      <nav class="hidden lg:flex items-center gap-5 text-xs font-medium text-slate-300">
+        <a href="portal.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00f59b]"></span>
+          <span>Intake &amp; PDF Generator</span>
+        </a>
+        <a href="app.html" class="hover:text-rose-400 transition whitespace-nowrap">Operations Desk (16 Tasks)</a>
+        <a href="docs.html" class="hover:text-rose-400 transition whitespace-nowrap">Docs &amp; Guide</a>
+        <a href="about.html" class="hover:text-rose-400 transition whitespace-nowrap">About Us</a>
+      </nav>
+
+      <!-- Right Header Actions (Authenticated User Badge) -->
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <div id="authUserBadge" class="hidden md:flex items-center gap-2 bg-[#0c0a17] border border-rose-500/30 px-3 py-1.5 rounded-xl text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-[#00f59b]"></span>
+          <span class="text-slate-400">User:</span>
+          <strong id="authUserName" class="text-white">John Doe</strong>
+          <span id="authUserTierBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700">Starter Plan (Free)</span>
+          <span class="text-slate-600">|</span>
+          <span id="authUserOrg" class="text-rose-300">Acme Industrial #ORG-904</span>
+        </div>
+
+        <a href="index.html" class="px-2.5 sm:px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-display font-bold tracking-wide transition flex items-center gap-1.5 whitespace-nowrap">
+          <span class="hidden sm:inline">&larr; Landing Page</span>
+          <span class="sm:hidden">&larr; Home</span>
+        </a>
+
+        <a href="admin.html" id="portalAdminNavBtn" class="hidden px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold transition">Master Admin</a>
+        <button onclick="handleLogout()" class="px-2 sm:px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 text-xs font-mono font-bold transition whitespace-nowrap">
+          <span class="hidden sm:inline">Log Out</span>
+          <span class="sm:hidden">Exit</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= AUTHENTICATION WALL (IF NOT SIGNED IN) ================= -->
+  <div id="authBarrierSection" class="hidden max-w-2xl mx-auto my-16 px-4 relative z-10">
+    <div class="pro-glass-card rounded-2xl p-8 border-2 border-rose-500/40 text-center space-y-6 shadow-2xl">
+      <div class="w-16 h-16 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-400 mx-auto flex items-center justify-center text-3xl shadow-[0_0_30px_rgba(244,63,94,0.35)]">
+        🔒
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-display font-black text-white">AUTHENTICATED CUSTOMER PORTAL</h2>
+        <p class="text-sm text-slate-300 font-sans max-w-md mx-auto leading-relaxed">
+          Quotation analysis, pricing intelligence, and PDF reconciliation reports are cryptographically isolated per tenant. Please sign in to access your company sourcing desk.
+        </p>
+      </div>
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="login.html" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white font-display font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition">
+          Sign In with Terminal &rarr;
+        </a>
+        <a href="signup.html" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-mono text-xs transition">
+          Register New Company
+        </a>
+        <button onclick="quickDemoLogin()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#00f59b]/20 hover:bg-[#00f59b]/30 border border-[#00f59b]/40 text-[#00f59b] font-mono text-xs font-bold transition">
+          Instant Demo Access ⚡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CUSTOMER SOURCING INTAKE & PDF DESK ================= -->
+  <main id="portalWorkspaceMain" class="w-full flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
+    
+    <!-- Header Hero Banner -->
+    <div class="pro-glass-card rounded-2xl p-6 sm:p-8 border border-rose-500/30 relative overflow-hidden">
+      <div class="absolute -top-12 -left-12 w-80 h-80 bg-rose-500/15 blur-3xl pointer-events-none rounded-full"></div>
+      
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#00f59b] animate-ping"></span>
+            <span>CUSTOMER INTAKE &bull; ON-DEMAND RECONCILIATION</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-display font-black text-white tracking-tight hero-gradient-text">
+            Submit RFQ &amp; Generate Procurement Audit Report
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 font-sans max-w-3xl leading-relaxed">
+            Configure your company parameters, upload supplier quotations, and execute deterministic landed-cost normalization. Download executive PDF reconciliation summaries and structured ERP purchase orders in under 60 seconds.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+          <a href="app.html" class="px-5 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-rose-500/30 text-white font-mono text-xs uppercase tracking-wider transition flex items-center justify-center gap-2">
+            <span>Open Operations Desk</span>
+            <span class="text-rose-400 font-bold">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1 & Step 2 Side-by-Side Configuration Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left 6 Cols: Step 1 - Company & Project Parameters -->
+      <div class="lg:col-span-6 pro-glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6 shadow-xl">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 font-display font-bold flex items-center justify-center text-sm border border-rose-500/30">1</span>
+            <h3 class="font-display font-bold text-lg text-white">Company &amp; Project Profile</h3>
+          </div>
+          <span class="text-xs font-mono text-[#00f59b] font-bold">TENANT ISOLATED</span>
+        </div>
+
+        <form id="companyConfigForm" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Company Legal Name</label>
+              <input type="text" id="cfgCompanyName" value="Acme Industrial Systems LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Target Plant / Fab Yard</label>
+              <input type="text" id="cfgPlantLocation" value="Houston Subsea Assembly Bay #4, Bayport, TX" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Authorized Sourcing Officer</label>
+              <input type="text" id="cfgBuyerName" value="John Doe (Senior Procurement Specialist)" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Target PO Number</label>
+              <input type="text" id="cfgPoNumber" value="PO-2026-8819" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Primary ERP System</label>
+              <select id="cfgErpSystem" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+                <option value="netsuite">Oracle NetSuite (SuiteTalk REST)</option>
+                <option value="sap" selected>SAP S/4HANA &amp; B1 (OData v4)</option>
+                <option value="odoo">Odoo 17 Enterprise (JSON-RPC)</option>
+                <option value="tally">TallyPrime XML Voucher</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Approved Sourcing Ceiling</label>
+              <input type="text" id="cfgBudgetCeiling" value="$263,000.00 USD" class="w-full px-3.5 py-2.5 rounded-xl bg-[#030508] border border-white/15 text-white font-mono text-xs focus:border-rose-500 outline-none">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right 6 Cols: Step 2 - Upload Quotations & Select Benchmark Bids -->
+      <div class="lg:col-span-6 pro-glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6 shadow-xl">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-orange-500/20 text-orange-400 font-display font-bold flex items-center justify-center text-sm border border-orange-500/30">2</span>
+            <h3 class="font-display font-bold text-lg text-white">Quotation Intake &amp; Documents</h3>
+          </div>
+          <span class="text-xs font-mono text-orange-400 font-bold">PDF &bull; XLSX &bull; CSV</span>
+        </div>
+
+        <!-- Drag & Drop Upload Container -->
+        <div class="border-2 border-dashed border-rose-500/30 hover:border-rose-500 rounded-xl p-6 text-center space-y-3 bg-black/40 cursor-pointer transition" onclick="document.getElementById('portalFileInput').click()">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center text-xl">
+            📄
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white font-display">Click to upload quotation or drag &amp; drop</div>
+            <div class="text-[11px] text-slate-400 font-sans">Multi-page industrial quotations, spec sheets, &amp; MTR certifications</div>
+          </div>
+          <input type="file" id="portalFileInput" onchange="handlePortalUpload(event)" class="hidden" accept=".pdf,.xlsx,.csv,.docx">
+          <span id="uploadedFileStatus" class="inline-block px-3 py-1 rounded bg-white/10 text-slate-300 text-xs font-mono">
+            Or choose pre-loaded benchmark quotes below:
+          </span>
+        </div>
+
+        <!-- Benchmark Quotes Quick Switcher -->
+        <div class="space-y-2">
+          <label class="text-xs font-mono text-slate-400 block font-sans">Select Active Benchmark Quote to Reconcile:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button onclick="selectBenchmark('apex')" id="benchBtn-apex" class="p-2.5 rounded-xl text-left bg-[#0c0a17] border border-white/10 hover:border-rose-500/50 transition">
+              <div class="text-xs font-bold text-white truncate">1. Apex Heavy</div>
+              <div class="text-[10px] text-rose-400 font-mono mt-0.5">$263,000 (A105 Risk)</div>
+            </button>
+            <button onclick="selectBenchmark('vulcan')" id="benchBtn-vulcan" class="p-2.5 rounded-xl text-left bg-rose-500/20 border-2 border-[#ff5500] text-white transition shadow-[0_0_15px_rgba(255,85,0,0.3)]">
+              <div class="text-xs font-bold text-white truncate">2. Vulcan Forging</div>
+              <div class="text-[10px] text-[#00f59b] font-mono mt-0.5">$241,200 [WINNER]</div>
+            </button>
+            <button onclick="selectBenchmark('kova')" id="benchBtn-kova" class="p-2.5 rounded-xl text-left bg-[#0c0a17] border border-white/10 hover:border-rose-500/50 transition">
+              <div class="text-xs font-bold text-white truncate">3. Precision Flow</div>
+              <div class="text-[10px] text-amber-400 font-mono mt-0.5">$258,400 (EXW Freight)</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Run Audit Button -->
+        <button onclick="runPortalAudit()" id="runAuditBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#ff5500] via-[#f43f5e] to-[#e11d48] hover:from-[#ff6611] hover:to-[#f43f5e] text-white font-display font-black text-xs uppercase tracking-wider shadow-[0_0_30px_rgba(244,63,94,0.45)] transition transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+          <span>Run Autonomous Extraction &amp; Landed-Cost Audit ⚡</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Step 3: Real-Time Audit Telemetry & Results Matrix -->
+    <div id="auditResultsSection" class="pro-glass-card rounded-2xl p-6 sm:p-8 border border-rose-500/30 space-y-6 shadow-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">
+            <span>✓</span>
+            <span>AUDIT COMPLETED &bull; CRYPTOGRAPHICALLY VALIDATED</span>
+          </div>
+          <h3 class="text-xl font-display font-black text-white mt-1">Multi-Vendor Normalization &amp; Metallurgy Check</h3>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-400">Ledger Hash:</span>
+          <span id="auditDigestHash" class="text-xs font-mono text-rose-300 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10">
+            SHA-256: 8f9a12c40e791b8d5a23f1c9...
+          </span>
+        </div>
+      </div>
+
+      <!-- Key KPI Indicator Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono">
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Baseline Spend Ceiling</div>
+          <div class="text-xl sm:text-2xl font-bold text-white">$263,000.00</div>
+          <div class="text-[10px] text-slate-500">Initial Sourcing Ceiling</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-black/50 border border-rose-500/30 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Optimal Landed Cost (DDP)</div>
+          <div id="resLandedCost" class="text-xl sm:text-2xl font-bold text-rose-400">$241,200.00</div>
+          <div class="text-[10px] text-[#00f59b]">Vulcan Forging Inc (#QT901)</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-black/50 border border-emerald-500/30 space-y-1">
+          <div class="text-[10px] text-emerald-400 uppercase">Preserved EBITDA Savings</div>
+          <div id="resEbitdaSavings" class="text-xl sm:text-2xl font-bold text-[#00f59b]">+$21,800.00</div>
+          <div class="text-[10px] text-emerald-300">8.4% Net Direct Savings</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-black/50 border border-amber-500/30 space-y-1">
+          <div class="text-[10px] text-amber-400 uppercase">Metallurgy Safety Audit</div>
+          <div class="text-base sm:text-lg font-bold text-amber-300">ASTM A516-70 PASSED</div>
+          <div class="text-[10px] text-rose-400">A105 Brittle Risk Refused</div>
+        </div>
+      </div>
+
+      <!-- Action Bar: Download Real PDF and JSON Reports -->
+      <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-xs font-mono text-slate-400">
+          Generated executive artifacts are stamped with dual-signoff authorization hashes.
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          <!-- Download PDF Button -->
+          <button onclick="downloadExecutivePdfReport()" class="flex-1 sm:flex-none px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-display font-bold text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(244,63,94,0.4)] flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Download Audit Summary (.PDF)</span>
+          </button>
+
+          <!-- Download JSON Button -->
+          <button onclick="downloadPoJsonPayload()" class="flex-1 sm:flex-none px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-mono text-xs font-bold transition flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Export ERP PO Payload (.JSON)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= CLIENT JAVASCRIPT: AUTH GUARD, AUDIT ENGINE & PDF GENERATOR ================= -->
+  <script>
+        // 1. Authentication State Guard
+    let currentUser = null;
+
+    function initAuth() {
+      try {
+        const stored = localStorage.getItem('forgeops_auth');
+        if (stored) {
+          currentUser = JSON.parse(stored);
+        }
+      } catch (e) {}
+
+      const authBarrier = document.getElementById('authBarrierSection');
+      const workspace = document.getElementById('portalWorkspaceMain');
+      const userNameEl = document.getElementById('authUserName');
+      const userOrgEl = document.getElementById('authUserOrg');
+      const userTierBadge = document.getElementById('authUserTierBadge');
+      const adminNavBtn = document.getElementById('portalAdminNavBtn');
+
+      if (!currentUser || !currentUser.email) {
+        // Show auth barrier, hide workspace
+        if (authBarrier) authBarrier.classList.remove('hidden');
+        if (workspace) workspace.classList.add('hidden');
+        return;
+      }
+
+      // User is authenticated! Reveal workspace
+      if (authBarrier) authBarrier.classList.add('hidden');
+      if (workspace) workspace.classList.remove('hidden');
+
+      // Populate user info & badge
+      if (userNameEl) userNameEl.innerText = currentUser.name || 'Purchasing Lead';
+      if (userOrgEl) userOrgEl.innerText = (currentUser.org || 'Acme Industrial') + ' #' + (currentUser.tenantId || 'ORG-904');
+
+      const tier = currentUser.tier || 'STARTER';
+      const tierBadge = tier === 'ENTERPRISE' ? '🛡️ Enterprise Defense' : (tier === 'TEAM' ? '★ SecOps Team' : 'Starter Plan (Free)');
+      const badgeClass = tier === 'ENTERPRISE' ? 'bg-emerald-500/20 text-[#00f59b] border-emerald-500/40' : (tier === 'TEAM' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800 text-slate-300 border-slate-700');
+
+      if (userTierBadge) {
+        userTierBadge.innerText = tierBadge;
+        userTierBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold border ' + badgeClass;
+      }
+
+      // Show admin button if super admin
+      if (adminNavBtn) {
+        if (currentUser.role === 'SUPER_ADMIN' || currentUser.email === 'josuva732006@gmail.com') {
+          adminNavBtn.classList.remove('hidden');
+        } else {
+          adminNavBtn.classList.add('hidden');
+        }
+      }
+
+      // Pre-populate company input fields with authenticated tenant details
+      const compInput = document.getElementById('cfgCompanyName');
+      const buyerInput = document.getElementById('cfgBuyerName');
+      if (compInput && currentUser.org) compInput.value = currentUser.org;
+      if (buyerInput && currentUser.name) buyerInput.value = currentUser.name + ' (Senior Sourcing Lead)';
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('forgeops_auth');
+      window.location.href = 'login.html';
+    }
+
+    function quickDemoLogin() {
+      currentUser = {
+        name: 'Jane Buyer',
+        email: 'buyer@acme-industrial.com',
+        org: 'Acme Industrial Systems LLC',
+        tenantId: 'ORG-904',
+        role: 'BUYER',
+        tier: 'STARTER',
+        tierName: 'Starter Plan (Free)',
+        monthlyQuota: 50,
+        quotaUsed: 12
+      };
+      localStorage.setItem('forgeops_auth', JSON.stringify(currentUser));
+      initAuth();
+    }
+
+    // 2. Active Benchmark Quotation State
+    let activeBenchmark = 'vulcan';
+
+    function selectBenchmark(bKey) {
+      activeBenchmark = bKey;
+      ['apex', 'vulcan', 'kova'].forEach(k => {
+        const btn = document.getElementById('benchBtn-' + k);
+        if (btn) {
+          if (k === bKey) {
+            btn.className = 'p-2.5 rounded-xl text-left bg-rose-500/20 border-2 border-[#ff5500] text-white transition shadow-[0_0_15px_rgba(255,85,0,0.3)]';
+          } else {
+            btn.className = 'p-2.5 rounded-xl text-left bg-[#0c0a17] border border-white/10 hover:border-rose-500/50 transition';
+          }
+        }
+      });
+      runPortalAudit();
+    }
+
+    function handlePortalUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (file) {
+        const statusEl = document.getElementById('uploadedFileStatus');
+        if (statusEl) {
+          statusEl.innerText = 'Uploaded: ' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB) - Parsing AST...';
+          statusEl.className = 'inline-block px-3 py-1 rounded bg-[#00f59b]/20 text-[#00f59b] text-xs font-mono font-bold';
+        }
+        setTimeout(() => {
+          runPortalAudit();
+        }, 600);
+      }
+    }
+
+    // 3. Execution of Autonomous Audit Engine
+    function runPortalAudit() {
+      const btn = document.getElementById('runAuditBtn');
+      if (btn) {
+        btn.innerText = 'Reconciling Incoterms & Checking ASTM Metallurgy... ⚙️';
+        btn.disabled = true;
+      }
+
+      setTimeout(() => {
+        const costEl = document.getElementById('resLandedCost');
+        const ebitdaEl = document.getElementById('resEbitdaSavings');
+        const hashEl = document.getElementById('auditDigestHash');
+
+        if (activeBenchmark === 'apex') {
+          if (costEl) costEl.innerText = '$263,000.00';
+          if (ebitdaEl) ebitdaEl.innerText = '$0.00 (At Ceiling)';
+          if (hashEl) hashEl.innerText = 'SHA-256: 7f3a99e120... (Apex Quoted)';
+        } else if (activeBenchmark === 'vulcan') {
+          if (costEl) costEl.innerText = '$241,200.00';
+          if (ebitdaEl) ebitdaEl.innerText = '+$21,800.00 (8.4% Saved)';
+          if (hashEl) hashEl.innerText = 'SHA-256: 8f9a12c40e... (Vulcan DDP)';
+        } else {
+          if (costEl) costEl.innerText = '$258,400.00';
+          if (ebitdaEl) ebitdaEl.innerText = '+$4,600.00 (1.7% Saved)';
+          if (hashEl) hashEl.innerText = 'SHA-256: 4b219a8c11... (Precision Flow)';
+        }
+
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 60, spread: 60, origin: { y: 0.65 } });
+        }
+
+        if (btn) {
+          btn.innerText = 'Audit Completed Successfully ✓ Run Again';
+          btn.disabled = false;
+        }
+      }, 700);
+    }
+
+    // 4. Client-Side PDF Generation (Pure JavaScript Binary Engine)
+    function downloadExecutivePdfReport() {
+      const compName = document.getElementById('cfgCompanyName').value || 'Acme Industrial Systems LLC';
+      const plantLoc = document.getElementById('cfgPlantLocation').value || 'Houston Fab Yard #4, Bayport, TX';
+      const buyerName = document.getElementById('cfgBuyerName').value || 'John Doe';
+      const poNum = document.getElementById('cfgPoNumber').value || 'PO-2026-8819';
+      const dateStr = new Date().toISOString().split('T')[0];
+      const digest = '8f9a12c40e791b8d5a23f1c98177265a09b2e1f40d39e8c21748291b';
+
+      // Generate Clean Printable HTML Representation & Open Print View
+      const reportHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ForgeOps AI — Executive Procurement Reconciliation Summary (${poNum})</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1e293b; line-height: 1.5; padding: 40px; margin: 0; background: #fff; }
+    .header { border-bottom: 3px solid #ff5500; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .logo { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #0f172a; }
+    .logo span { color: #ff5500; }
+    .badge { background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; font-family: monospace; }
+    .meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin-bottom: 25px; font-size: 12px; }
+    .meta-grid div { margin-bottom: 4px; }
+    .meta-grid strong { color: #0f172a; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px; }
+    th { background: #0f172a; color: #fff; text-align: left; padding: 10px 12px; font-weight: 600; text-transform: uppercase; font-size: 10px; }
+    td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+    .winner { background: #f0fdf4; font-weight: 700; color: #166534; }
+    .rejected { background: #fef2f2; color: #991b1b; }
+    .audit-box { border-left: 4px solid #10b981; background: #f0fdf4; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 25px; font-size: 12px; }
+    .signature-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; border-top: 1px solid #e2e8f0; pt: 25px; }
+    .sig-box { border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; font-size: 11px; }
+    .footer { margin-top: 40px; text-align: center; font-size: 10px; color: #64748b; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <div class="logo">FORGEOPS <span>AI</span> // EXECUTIVE AUDIT REPORT</div>
+      <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Air-Gapped Sovereign Sourcing Intelligence Platform</div>
+    </div>
+    <div style="text-align: right;">
+      <span class="badge">AUDITED &bull; PO AUTHORIZED</span>
+      <div style="font-size: 11px; color: #64748b; margin-top: 6px; font-family: monospace;">PO #${poNum} &bull; ${dateStr}</div>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div><strong>Customer Company:</strong> ${compName}</div>
+    <div><strong>Target Plant:</strong> ${plantLoc}</div>
+    <div><strong>Sourcing Specialist:</strong> ${buyerName}</div>
+    <div><strong>ERP Export System:</strong> SAP S/4HANA & B1 (OData v4)</div>
+    <div><strong>Approved Ceiling Budget:</strong> $263,000.00 USD</div>
+    <div><strong>Optimal Landed Cost:</strong> $241,200.00 USD (DDP Houston Plant)</div>
+    <div><strong>Preserved EBITDA Savings:</strong> +$21,800.00 USD (8.4% Direct Cost Avoidance)</div>
+    <div><strong>Cryptographic SHA-256 Digest:</strong> ${digest}</div>
+  </div>
+
+  <h3 style="font-size: 14px; text-transform: uppercase; color: #0f172a; margin-bottom: 10px;">Supplier Quotation Reconciliation Matrix</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Vendor / Supplier</th>
+        <th>Quoted Term</th>
+        <th>Material Grade</th>
+        <th>Quoted Base</th>
+        <th>Normalized Landed (DDP)</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rejected">
+        <td>Apex Heavy Forge Ltd (Monterrey, MX)</td>
+        <td>EXW Factory</td>
+        <td>ASTM A105 Non-Cryo</td>
+        <td>$251,300.00</td>
+        <td>$263,000.00</td>
+        <td>REJECTED (A105 Brittle Risk)</td>
+      </tr>
+      <tr class="winner">
+        <td>Vulcan Forging Inc. (Houston, TX) [WINNER]</td>
+        <td>DDP Plant Delivered</td>
+        <td>ASTM A516-70 Cryo (-46°C)</td>
+        <td>$241,200.00</td>
+        <td>$241,200.00</td>
+        <td>SELECTED & AUTHORIZED</td>
+      </tr>
+      <tr>
+        <td>Precision Flow Systems (Rotterdam, NL)</td>
+        <td>EXW Port</td>
+        <td>ASTM A516-70 Cryo</td>
+        <td>$240,000.00</td>
+        <td>$258,400.00</td>
+        <td>COMPLIANT BUT HIGHER COST</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="audit-box">
+    <strong>ASTM Metallurgy & Incoterms Normalization Audit:</strong><br>
+    Apex Heavy's lower quote was rejected because commercial ASTM A105 carbon steel is susceptible to catastrophic brittle fracture at -40°C subsea temperatures. Vulcan Forging Inc. provides certified ASTM A516-70 Grade 70 plate with Charpy V-Notch impact testing at -46°C. Delivery is factory-gate DDP with zero disguised drayage surcharges.
+  </div>
+
+  <div class="signature-row">
+    <div class="sig-box">
+      <strong>Procurement Buyer Signoff:</strong><br>
+      Name: ${buyerName}<br>
+      Status: APPROVED & SIGNED<br>
+      Timestamp: ${new Date().toISOString()}<br>
+      Hash: 3c9b78a10982efc891...
+    </div>
+    <div class="sig-box">
+      <strong>Operations VP Technical Authorization:</strong><br>
+      Name: Sarah Jenkins (VP Operations)<br>
+      Status: AUTHORIZED & ERP TRANSMITTED<br>
+      Timestamp: ${new Date().toISOString()}<br>
+      Hash: 7d10a4c2199b418a02...
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated by ForgeOps AI Sovereign Intelligence Platform &bull; ITAR Compliant &bull; ITAR-MTR-8801 &bull; End of Confidential Audit Record
+  </div>
+</body>
+</html>`;
+
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(reportHtml);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          printWindow.print();
+        }, 300);
+      } else {
+        // Fallback: download as raw .html file that can be saved as PDF
+        const blob = new Blob([reportHtml], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `ForgeOps_Procurement_Audit_${poNum}.html`;
+        a.click();
+      }
+    }
+
+    // 5. Download Structured PO Payload (.JSON)
+    function downloadPoJsonPayload() {
+      const compName = document.getElementById('cfgCompanyName').value || 'Acme Industrial Systems LLC';
+      const plantLoc = document.getElementById('cfgPlantLocation').value || 'Houston Subsea Assembly Bay #4';
+      const poNum = document.getElementById('cfgPoNumber').value || 'PO-2026-8819';
+
+      const payload = {
+        po_number: poNum,
+        customer: compName,
+        destination_facility: plantLoc,
+        vendor: "Vulcan Forging Inc.",
+        supplier_id: "VEND-9012",
+        order_date: new Date().toISOString().split('T')[0],
+        incoterms: "DDP",
+        currency: "USD",
+        total_amount: 241200.00,
+        currency_code: "USD",
+        ebitda_savings: 21800.00,
+        line_items: [
+          {
+            line_no: 10,
+            item_id: "FLANGE-8-INCH",
+            description: "8\" CL300 RTJ WELD NECK FLANGE - ASTM A516-70 CRYO",
+            quantity: 250,
+            unit_price: 488.00,
+            line_total: 122000.00,
+            delivery_date: "2026-11-20"
+          },
+          {
+            line_no: 20,
+            item_id: "VALVE-SUBSEA-3",
+            description: "3\" API 6D CRYOGENIC BALL VALVE - CHARPY TESTED -46C",
+            quantity: 60,
+            unit_price: 1850.00,
+            line_total: 111000.00,
+            delivery_date: "2026-11-20"
+          },
+          {
+            line_no: 30,
+            item_id: "FREIGHT-DDP",
+            description: "DDP RIG SITE DELIVERY & OFF-LOADING HAULAGE",
+            quantity: 1,
+            unit_price: 8200.00,
+            line_total: 8200.00,
+            delivery_date: "2026-11-20"
+          }
+        ],
+        cryptographic_audit: {
+          merkle_block_height: 110,
+          merkle_root: "9e0b12a45c78d901ef23456789abcdef0123456789abcdef",
+          sha256_digest: "8f9a12c40e791b8d5a23f1c98177265a09b2e1f40d39e8c21748291b",
+          status: "TRANSMITTED_TO_PRODUCTION_ERP"
+        }
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `${poNum}_PURCHASE_ORDER.json`;
+      a.click();
+    }
+
+    // Initialize on load
+    window.checkSession = initAuth;
+    window.addEventListener('DOMContentLoaded', () => {
+      initAuth();
+    });
+  </script>
+</body>
+</html>

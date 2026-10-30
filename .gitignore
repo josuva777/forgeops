@@ -1,0 +1,36 @@
+# Environment variables & secrets (CRITICAL: Zero-Leak Rule)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies & Environments
+node_modules/
+.venv/
+*/.venv/
+__pycache__/
+*/__pycache__/
+*.pyc
+
+# Local Databases & Backups
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Testing & Logs
+test-results/
+playwright-report/
+blob-report/
+*.log
+npm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db

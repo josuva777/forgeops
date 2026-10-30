@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch ForgeOps Landing Page (index.html)",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch ForgeOps Operations Platform (app.html)",
+            "file": "${workspaceFolder}/app.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch ForgeOps Local Backend (http://127.0.0.1:8000)",
+            "url": "http://127.0.0.1:8000",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

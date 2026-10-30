@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <link rel="stylesheet" href="tailwind.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeOps AI // About Us — Industrial Intelligence Engineering</title>
+  <meta name="description" content="The mission, engineering team, metallurgical principles, and sovereign compliance standards behind ForgeOps AI.">
+
+  <!-- Enterprise Fonts: Chakra Petch, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <script>
+    if (window.tailwind) {
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#05070b',
+              50: '#0e121a',
+              100: '#0a0d14',
+              900: '#030407',
+            },
+            forge: {
+              DEFAULT: '#ff5500',
+              glow: 'rgba(255, 85, 0, 0.45)',
+              light: '#ff7733',
+              dark: '#cc4400',
+            },
+            cyber: {
+              emerald: '#00f59b',
+              amber: '#ffb800',
+              cyan: '#00d4ff',
+              crimson: '#ff3366',
+            }
+          },
+          fontFamily: {
+            display: ['Chakra Petch', 'sans-serif'],
+            tech: ['Space Grotesk', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #08070e;
+      --card-bg: rgba(16, 14, 27, 0.92);
+      --card-border: rgba(244, 63, 94, 0.18);
+      --forge-orange: #ff5500;
+      --pink-rose: #f43f5e;
+      --pink-glow: rgba(244, 63, 94, 0.4);
+      --cyber-emerald: #00f59b;
+    }
+
+    html {
+      background-color: #08070e !important;
+      color-scheme: dark !important;
+    }
+
+    body {
+      background-color: #08070e !important;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .cloudy-pink-atmosphere {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.22) 0%, rgba(217, 70, 239, 0.12) 35%, rgba(255, 85, 0, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.16) 0%, rgba(236, 72, 153, 0.07) 40%, transparent 70%),
+        radial-gradient(circle at 88% 35%, rgba(251, 146, 60, 0.15) 0%, rgba(244, 63, 94, 0.08) 45%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 900px 900px, 900px 900px, 48px 48px, 48px 48px !important;
+    }
+
+    .theme-space-stars {
+      background-color: #030408 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge {
+      background-color: #080503 !important;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 85, 0, 0.22) 0%, rgba(245, 158, 11, 0.12) 40%, transparent 70%),
+        linear-gradient(to right, rgba(255, 120, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 120, 0, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .pro-glass-card {
+      background: linear-gradient(180deg, rgba(16, 14, 27, 0.94) 0%, rgba(10, 9, 18, 0.98) 100%) !important;
+      border: 1px solid rgba(244, 63, 94, 0.20) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #ffffff 15%, #fed7aa 55%, #f43f5e 90%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(244, 63, 94, 0.45));
+    }
+  
+    /* Multi-Theme Palettes (Live Switching) */
+    .theme-cloudy-pink, #atmosphericBackground.theme-cloudy-pink {
+      background-color: #08070e !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(244, 63, 94, 0.24) 0%, rgba(217, 70, 239, 0.14) 35%, rgba(255, 85, 0, 0.09) 60%, transparent 80%),
+        radial-gradient(circle at 12% 25%, rgba(244, 63, 94, 0.18) 0%, rgba(236, 72, 153, 0.08) 40%, transparent 70%),
+        radial-gradient(circle at 88% 35%, rgba(251, 146, 60, 0.16) 0%, rgba(244, 63, 94, 0.09) 45%, transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 65%, rgba(217, 70, 239, 0.14) 0%, rgba(244, 63, 94, 0.07) 50%, transparent 80%),
+        radial-gradient(circle at 18% 85%, rgba(244, 63, 94, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 82% 90%, rgba(255, 85, 0, 0.13) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+
+    .theme-space-stars, #atmosphericBackground.theme-space-stars {
+      background-color: #020307 !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(59, 130, 246, 0.22) 0%, rgba(99, 102, 241, 0.14) 35%, rgba(14, 165, 233, 0.08) 60%, transparent 80%),
+        radial-gradient(circle at 15% 30%, rgba(147, 51, 234, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 85% 40%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 70%, rgba(99, 102, 241, 0.12) 0%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px) !important;
+    }
+
+    .theme-amber-forge, #atmosphericBackground.theme-amber-forge {
+      background-color: #070402 !important;
+      background-image: 
+        radial-gradient(ellipse 85% 60% at 50% 0%, rgba(255, 85, 0, 0.25) 0%, rgba(245, 158, 11, 0.15) 35%, rgba(220, 38, 38, 0.09) 60%, transparent 80%),
+        radial-gradient(circle at 12% 28%, rgba(255, 85, 0, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 88% 38%, rgba(245, 158, 11, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 65%, rgba(255, 85, 0, 0.14) 0%, transparent 80%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+    }
+    .pointer-events-none { pointer-events: none !important; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-slate-100 antialiased selection:bg-[#f43f5e] selection:text-white relative bg-[#08070e]">
+
+  <!-- Atmospheric Background -->
+  <div id="atmosphericBackground" class="fixed inset-0 pointer-events-none z-0 w-full h-full cloudy-pink-atmosphere" style="pointer-events: none !important;"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#08070e]/95 backdrop-blur-xl border-b border-rose-500/20 shadow-lg">
+    <div class="border-b border-rose-500/10 bg-[#050409] px-4 py-1.5 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-400 gap-2">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-rose-400 font-bold font-display tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f43f5e] animate-ping"></span>
+          FORGEOPS AI // CORPORATE &amp; ENGINEERING BRIEF
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="setTheme('cloudy-pink')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-rose-500 bg-rose-500/25 text-rose-200 font-bold">✦ Cloudy Pink</button>
+        <button onclick="setTheme('space-stars')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">★ Deep Space</button>
+        <button onclick="setTheme('amber-forge')" class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 text-slate-400 hover:text-white">▲ Amber Forge</button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-display font-black tracking-wide text-lg group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff5500] via-[#f43f5e] to-[#ec4899] flex items-center justify-center text-white text-xs font-black shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+          FO
+        </span>
+        <span class="tracking-tight">FORGEOPS <span class="text-rose-400">AI</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-rose-400 transition whitespace-nowrap">Home</a>
+        <a href="app.html" class="hover:text-rose-400 transition whitespace-nowrap">Operations Platform</a>
+        <a href="docs.html" class="hover:text-rose-400 transition whitespace-nowrap">User Guide &amp; Docs</a>
+        <a href="about.html" class="text-rose-400 font-bold transition whitespace-nowrap">About Us</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="login.html" class="text-xs font-mono text-slate-300 hover:text-white hidden sm:inline">Sign In</a>
+        <a href="app.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] text-white text-xs font-display font-bold uppercase tracking-wider transition shadow-[0_0_20px_rgba(244,63,94,0.35)] flex items-center gap-1.5">
+          <span>Launch Workspace</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= ABOUT US CONTENT ================= -->
+  <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20 relative z-10 flex-1">
+    
+    <!-- Hero / Mission -->
+    <div class="max-w-4xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-mono text-xs font-bold uppercase tracking-wider">
+        <span>SOVEREIGN INDUSTRIAL INTELLIGENCE</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-display font-black text-white tracking-tight hero-gradient-text leading-tight">
+        ENGINEERED TO ELIMINATE CATASTROPHIC SUPPLY CHAIN HALLUCINATIONS.
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed max-w-3xl mx-auto">
+        General-purpose AI fails when a cryogenic valve failure costs $180,000 per hour or an unnoticed Incoterms freight trap wipes out procurement EBITDA. We built ForgeOps AI to provide deterministic, air-gapped mathematical certainty.
+      </p>
+    </div>
+
+    <!-- 4 Core Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="pro-glass-card rounded-2xl p-6 border border-rose-500/20 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg font-mono">
+          01
+        </div>
+        <h3 class="font-display font-bold text-white text-base">Arbitrary Decimal Math</h3>
+        <p class="text-xs text-slate-300 font-sans leading-relaxed">
+          All financial calculations execute via arbitrary-precision <code>Decimal</code> structures. Zero floating-point drift, zero rounding hallucinations.
+        </p>
+      </div>
+
+      <div class="pro-glass-card rounded-2xl p-6 border border-rose-500/20 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg font-mono">
+          02
+        </div>
+        <h3 class="font-display font-bold text-white text-base">Optical Pixel Provenance</h3>
+        <p class="text-xs text-slate-300 font-sans leading-relaxed">
+          Every extracted number is mathematically bound to exact x/y coordinates on the original PDF or sheet with verified OCR confidence scores.
+        </p>
+      </div>
+
+      <div class="pro-glass-card rounded-2xl p-6 border border-rose-500/20 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg font-mono">
+          03
+        </div>
+        <h3 class="font-display font-bold text-white text-base">ASTM Metallurgy Radar</h3>
+        <p class="text-xs text-slate-300 font-sans leading-relaxed">
+          Hard-coded thermodynamic and metallurgy rules enforce ASME B16.5 and ASTM A516-70 Charpy impact specifications before any PO is compiled.
+        </p>
+      </div>
+
+      <div class="pro-glass-card rounded-2xl p-6 border border-rose-500/20 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg font-mono">
+          04
+        </div>
+        <h3 class="font-display font-bold text-white text-base">Air-Gapped Sovereign Operation</h3>
+        <p class="text-xs text-slate-300 font-sans leading-relaxed">
+          Runs 100% offline within sovereign military and enterprise boundaries. No proprietary BOM specifications ever leak across public cloud APIs.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Compliance & Certifications -->
+    <div class="pro-glass-card rounded-2xl p-8 border border-white/10 space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-display font-bold text-white">ENTERPRISE COMPLIANCE &amp; ACCREDITATION</h2>
+        <p class="text-xs text-slate-400 font-sans max-w-xl mx-auto">
+          Audited and certified against the highest defense, aerospace, and nuclear procurement standards.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4 font-mono text-xs text-center">
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-rose-400 font-bold text-base">SOC 2</div>
+          <div class="text-[10px] text-slate-400">Type II Ready</div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-[#00f59b] font-bold text-base">ITAR</div>
+          <div class="text-[10px] text-slate-400">Export Compliant</div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-amber-400 font-bold text-base">ASME</div>
+          <div class="text-[10px] text-slate-400">B16.5 &bull; B31.3</div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-sky-400 font-bold text-base">API 6D</div>
+          <div class="text-[10px] text-slate-400">Subsea Pipelines</div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-purple-400 font-bold text-base">ISO 27001</div>
+          <div class="text-[10px] text-slate-400">Security Control</div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/50 border border-white/10 space-y-1">
+          <div class="text-emerald-400 font-bold text-base">NIST</div>
+          <div class="text-[10px] text-slate-400">SP 800-171</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global Operations Hubs -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+      <div class="p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+        <div class="text-rose-400 font-bold text-sm">HOUSTON, TEXAS (HQ)</div>
+        <div class="text-slate-300 font-sans">Industrial Metallurgy &amp; Subsea Energy Operations Center</div>
+        <div class="text-slate-500 text-[10px]">Energy Corridor &bull; Houston Depot Operations</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+        <div class="text-rose-400 font-bold text-sm">ZURICH, SWITZERLAND</div>
+        <div class="text-slate-300 font-sans">Cryptographic Merkle &amp; Mathematical Verification Lab</div>
+        <div class="text-slate-500 text-[10px]">Air-Gapped Sovereign Compute Division</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+        <div class="text-rose-400 font-bold text-sm">SINGAPORE</div>
+        <div class="text-slate-300 font-sans">Asia-Pacific Shipbuilding &amp; Heavy Subcontracting Center</div>
+        <div class="text-slate-500 text-[10px]">Marina Bay Financial Center</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#030206] border-t border-white/5 py-8 px-4 sm:px-6 lg:px-8 text-xs font-mono text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <strong class="text-white font-display">FORGEOPS AI // INDUSTRIAL INTELLIGENCE</strong>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-500">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <span>•</span>
+        <a href="app.html" class="hover:text-white transition">Operations Platform</a>
+        <span>•</span>
+        <a href="docs.html" class="hover:text-white transition">Docs</a>
+        <span>•</span>
+        <a href="login.html" class="hover:text-white transition">Sign In</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setTheme(themeName) {
+      const bg = document.getElementById('atmosphericBackground');
+      if (!bg) return;
+      ['cloudy-pink-atmosphere', 'theme-space-stars', 'theme-amber-forge'].forEach(t => bg.classList.remove(t));
+      bg.classList.add(themeName === 'cloudy-pink' ? 'cloudy-pink-atmosphere' : 'theme-' + themeName);
+    }
+  </script>
+
+</body>
+</html>
+
