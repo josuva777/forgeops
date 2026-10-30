@@ -14,12 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
-  <!-- Local Offline Tailwind CSS Fallback (100% Air-Gapped) -->
-  <link rel="stylesheet" href="tailwind.min.css" />
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <!-- Local Three.js with CDN Fallback -->
-  <script src="three.min.js"></script>
   <!-- Three.js (r128) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Lenis Smooth Scroll -->
@@ -251,6 +246,10 @@
     .spotlight-card {
       position: relative;
       overflow: hidden;
+    }
+    .spotlight-card.allow-badge-overflow,
+    #featuredPricingCard {
+      overflow: visible !important;
     }
     .spotlight-card::before {
       content: '';
@@ -1868,7 +1867,7 @@
         </div>
         <div class="relative">
           <div class="absolute left-1/2 -top-8 -translate-x-1/2 w-96 h-32 bg-orange-500/10 blur-3xl pointer-events-none -z-10 rounded-full"></div>
-          <h2 class="text-3xl sm:text-5xl font-display font-black text-white tracking-tight hero-gradient-text">
+          <h2 class="text-3xl sm:text-5xl font-display font-black text-white tracking-tight hero-gradient-text leading-tight sm:leading-tight py-2 px-1">
             BUILT FOR MIDSIZE INDUSTRIAL OPERATIONS.
           </h2>
         </div>
@@ -1877,14 +1876,14 @@
         </p>
 
         <!-- Billing Toggle -->
-        <div class="pt-2 flex items-center justify-center gap-3 text-xs font-mono">
-          <span id="labelMonthly" class="text-white font-bold">Monthly Billing</span>
-          <button onclick="toggleBillingCycle()" id="billingToggleBtn" class="w-12 h-6 rounded-full bg-orange-500/20 p-1 border border-orange-500/40 transition relative">
+        <div class="pt-2 flex items-center justify-center gap-3 text-sm font-sans">
+          <span id="labelMonthly" class="text-white font-bold tracking-wide transition select-none">Monthly Billing</span>
+          <button onclick="toggleBillingCycle()" id="billingToggleBtn" aria-label="Toggle Billing Cycle" class="w-12 h-6 rounded-full bg-orange-500/20 p-1 border border-orange-500/40 transition relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500">
             <div id="billingToggleThumb" class="w-4 h-4 rounded-full bg-[#ff5500] transition transform translate-x-0"></div>
           </button>
-          <div class="flex items-center gap-1.5">
-            <span id="labelAnnual" class="text-slate-400">Annual Billing</span>
-            <span class="px-2 py-0.5 rounded-full bg-[#00f59b]/20 text-[#00f59b] text-[10px] font-bold">SAVE 20%</span>
+          <div class="flex items-center gap-2">
+            <span id="labelAnnual" class="text-slate-400 font-medium tracking-wide transition select-none">Annual Billing</span>
+            <span class="px-2 py-0.5 rounded-full bg-[#00f59b]/20 text-[#00f59b] text-xs font-bold tracking-wide border border-[#00f59b]/30">SAVE 20%</span>
           </div>
         </div>
       </div>
@@ -1911,15 +1910,15 @@
             </ul>
           </div>
           <div class="pt-8">
-            <button onclick="openModal('demoModal')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-display font-bold text-xs uppercase tracking-wider transition">
+            <button onclick="openModal('demoModal')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-sans font-bold text-xs uppercase tracking-wider transition">
               Select Starter Plan
             </button>
           </div>
         </div>
 
         <!-- Tier 2: Mid-Market Plant (FEATURED HERO TIER) -->
-        <div class="pro-glass-card rounded-2xl p-8 border-2 border-orange-500 shadow-forge-glow flex flex-col justify-between relative bg-gradient-to-b from-[#101826] to-[#070a10]">
-          <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full bg-[#ff5500] text-black text-[10px] font-display font-black uppercase tracking-wider shadow-forge-glow">
+        <div id="featuredPricingCard" class="pro-glass-card !overflow-visible rounded-2xl p-8 border-2 border-orange-500 shadow-forge-glow flex flex-col justify-between relative bg-gradient-to-b from-[#101826] to-[#070a10]">
+          <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full bg-[#ff5500] text-black text-[11px] font-sans font-black uppercase tracking-wider shadow-forge-glow z-20 pointer-events-none">
             MOST POPULAR FOR FABRICATORS
           </div>
           <div class="space-y-4">
@@ -1939,7 +1938,7 @@
             </ul>
           </div>
           <div class="pt-8">
-            <button onclick="initiatePlanUpgrade('TEAM')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] hover:from-[#ff6611] hover:to-[#f43f5e] text-white font-display font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(244,63,94,0.4)] transform hover:scale-[1.02] active:scale-[0.98]">Upgrade to Team Tier ($1,490/mo)</button>
+            <button id="btnTier2" onclick="initiatePlanUpgrade('TEAM')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#f43f5e] hover:from-[#ff6611] hover:to-[#f43f5e] text-white font-sans font-bold text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(244,63,94,0.4)] transform hover:scale-[1.02] active:scale-[0.98]">Upgrade to Team Tier ($2,490/mo)</button>
           </div>
         </div>
 
@@ -1962,7 +1961,7 @@
             </ul>
           </div>
           <div class="pt-8">
-            <button onclick="initiatePlanUpgrade('ENTERPRISE')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-display font-bold text-xs uppercase tracking-wider transition">Upgrade to Enterprise Fleet ($6,900/mo)</button>
+            <button id="btnTier3" onclick="initiatePlanUpgrade('ENTERPRISE')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-sans font-bold text-xs uppercase tracking-wider transition">Upgrade to Enterprise Fleet ($6,900/mo)</button>
           </div>
         </div>
 
@@ -3261,19 +3260,44 @@
       if (typeof playToneClick === 'function') playToneClick();
       billingAnnual = !billingAnnual;
 
-      const toggleDot = document.getElementById('billingToggleDot');
-      const teamPrice = document.getElementById('pricingTeamVal');
-      const enterprisePrice = document.getElementById('pricingEnterpriseVal');
+      const toggleThumb = document.getElementById('billingToggleThumb');
+      const toggleBtn = document.getElementById('billingToggleBtn');
+      const labelMonthly = document.getElementById('labelMonthly');
+      const labelAnnual = document.getElementById('labelAnnual');
+      const p1 = document.getElementById('priceTier1');
+      const p2 = document.getElementById('priceTier2');
+      const p3 = document.getElementById('priceTier3');
+      const btn2 = document.getElementById('btnTier2');
+      const btn3 = document.getElementById('btnTier3');
 
-      if (toggleDot) {
-        toggleDot.style.transform = billingAnnual ? 'translateX(24px)' : 'translateX(0px)';
+      if (toggleThumb) {
+        toggleThumb.style.transform = billingAnnual ? 'translateX(24px)' : 'translateX(0px)';
+      }
+      if (toggleBtn) {
+        toggleBtn.classList.toggle('bg-orange-500/40', billingAnnual);
       }
 
-      if (teamPrice) {
-        teamPrice.innerText = billingAnnual ? '$1,190' : '$1,490';
+      if (labelMonthly) {
+        labelMonthly.className = billingAnnual
+          ? 'text-slate-400 font-medium tracking-wide transition select-none'
+          : 'text-white font-bold tracking-wide transition select-none';
       }
-      if (enterprisePrice) {
-        enterprisePrice.innerText = billingAnnual ? '$4,960' : '$6,200';
+
+      if (labelAnnual) {
+        labelAnnual.className = billingAnnual
+          ? 'text-white font-bold tracking-wide transition select-none'
+          : 'text-slate-400 font-medium tracking-wide transition select-none';
+      }
+
+      if (p1) p1.innerText = billingAnnual ? '$630' : '$790';
+      if (p2) p2.innerText = billingAnnual ? '$1,990' : '$2,490';
+      if (p3) p3.innerText = billingAnnual ? '$5,520' : '$6,900';
+
+      if (btn2) {
+        btn2.innerText = billingAnnual ? 'Upgrade to Team Tier ($1,990/mo)' : 'Upgrade to Team Tier ($2,490/mo)';
+      }
+      if (btn3) {
+        btn3.innerText = billingAnnual ? 'Upgrade to Enterprise Fleet ($5,520/mo)' : 'Upgrade to Enterprise Fleet ($6,900/mo)';
       }
     }
 
